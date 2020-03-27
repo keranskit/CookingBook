@@ -11,6 +11,7 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +26,22 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Allergen> Allergens { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Recipe> Recipes { get; set; }
+
+        public DbSet<RecipeAllergen> RecipeAllergens { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<UserAllergen> UserAllergens { get; set; }
+
+        public DbSet<UserCookedRecipe> UserCookedRecipes { get; set; }
+
+        public DbSet<UserFavoriteRecipe> UserFavoriteRecipes { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -72,6 +89,95 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            // Private Fluent Api
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Claims)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Logins)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Roles)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Many-to-many unidirectional relationship between Users and Allergens
+            builder.Entity<UserAllergen>()
+                .HasKey(ua => new { ua.UserId, ua.AllergenId });
+
+            builder.Entity<UserAllergen>()
+                .HasOne(ua => ua.User)
+                .WithMany(u => u.Allergens)
+                .HasForeignKey(ua => ua.UserId);
+
+            builder.Entity<UserAllergen>()
+                .HasOne(ua => ua.Allergen)
+                .WithMany()
+                .HasForeignKey(ua => ua.AllergenId);
+
+            // Many-to-many relationship between Users and Recipes
+            builder.Entity<UserFavoriteRecipe>()
+                .HasKey(ufr => new { ufr.UserId, ufr.RecipeId });
+
+            builder.Entity<UserFavoriteRecipe>()
+                .HasOne(ufr => ufr.User)
+                .WithMany(u => u.FavoriteRecipes)
+                .HasForeignKey(ufr => ufr.UserId);
+
+            builder.Entity<UserFavoriteRecipe>()
+                .HasOne(ufr => ufr.Recipe)
+                .WithMany(r => r.FavoriteBy)
+                .HasForeignKey(ufr => ufr.RecipeId);
+
+            // Many-to-many relationship between Users and Recipes
+            builder.Entity<UserCookedRecipe>()
+                .HasKey(ucr => new { ucr.UserId, ucr.RecipeId });
+
+            builder.Entity<UserCookedRecipe>()
+                .HasOne(ucr => ucr.User)
+                .WithMany(u => u.CookedRecipes)
+                .HasForeignKey(ucr => ucr.UserId);
+
+            builder.Entity<UserCookedRecipe>()
+                .HasOne(ucr => ucr.Recipe)
+                .WithMany(r => r.CookedBy)
+                .HasForeignKey(ucr => ucr.RecipeId);
+
+            // Many-to-many unidirectional relationship between Recipes and Allergens
+            builder.Entity<RecipeAllergen>()
+                .HasKey(ra => new { ra.RecipeId, ra.AllergenId });
+
+            builder.Entity<RecipeAllergen>()
+                .HasOne(ra => ra.Recipe)
+                .WithMany(r => r.Allergens)
+                .HasForeignKey(ra => ra.RecipeId);
+
+            builder.Entity<RecipeAllergen>()
+                .HasOne(ra => ra.Allergen)
+                .WithMany()
+                .HasForeignKey(ra => ra.AllergenId);
+
+            // Unique constraints
+            builder.Entity<Category>()
+                .HasIndex(x => x.Title)
+                .IsUnique();
+
+            // One-to-One relationship between Recipes and NutritionalValues
+            builder.Entity<Recipe>()
+                .HasOne(r => r.NutritionValue)
+                .WithOne(nv => nv.Recipe)
+                .HasForeignKey<NutritionValue>(nv => nv.RecipeId);
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
@@ -82,7 +188,7 @@
 
         // Applies configurations
         private void ConfigureUserIdentityRelations(ModelBuilder builder)
-             => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+            => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
         private void ApplyAuditInfoRules()
         {
