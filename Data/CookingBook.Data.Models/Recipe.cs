@@ -21,6 +21,8 @@
 
         public string Photo { get; set; }
 
+        public string ProductNeeded { get; set; }
+
         public int PrepareTime { get; set; }
 
         public int CookTime { get; set; }
