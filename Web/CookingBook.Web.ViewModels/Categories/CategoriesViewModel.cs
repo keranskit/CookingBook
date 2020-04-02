@@ -8,5 +8,7 @@
     public class CategoriesViewModel : IMapFrom<Category>
     {
         public string Title { get; set; }
+
+
     }
 }

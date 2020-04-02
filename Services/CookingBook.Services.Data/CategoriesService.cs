@@ -6,7 +6,6 @@
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
     using Mapping;
-    using Web.ViewModels.Categories;
 
     public class CategoriesService : ICategoriesService
     {
@@ -25,15 +24,6 @@
         public IEnumerable<T> GetAll<T>()
         {
             return this.categoryRepository.All().To<T>().ToList();
-        }
-
-        public async Task AddAsync(CategoriesViewModel categoriesViewModel)
-        {
-            Category newCategory = new Category
-            {
-                Title = categoriesViewModel.Title,
-            };
-            await this.categoryRepository.AddAsync(newCategory);
         }
     }
 }
