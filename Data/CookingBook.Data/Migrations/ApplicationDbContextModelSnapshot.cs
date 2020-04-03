@@ -19,36 +19,6 @@ namespace CookingBook.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CookingBook.Data.Models.Allergen", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Allergens");
-                });
-
             modelBuilder.Entity("CookingBook.Data.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -261,16 +231,92 @@ namespace CookingBook.Data.Migrations
                     b.ToTable("NutritionValue");
                 });
 
+            modelBuilder.Entity("CookingBook.Data.Models.Product", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Product1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product10")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product11")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product12")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product13")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product14")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product15")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product5")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product6")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product7")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product8")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product9")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecipeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("RecipeId")
+                        .IsUnique();
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("CookingBook.Data.Models.Recipe", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AllergenId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CookProcedure")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CookTime")
                         .HasColumnType("int");
@@ -293,10 +339,7 @@ namespace CookingBook.Data.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PrepareTime")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductNeeded")
+                    b.Property<string>("ProductId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReviewId")
@@ -321,21 +364,6 @@ namespace CookingBook.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
-                });
-
-            modelBuilder.Entity("CookingBook.Data.Models.RecipeAllergen", b =>
-                {
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AllergenId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RecipeId", "AllergenId");
-
-                    b.HasIndex("AllergenId");
-
-                    b.ToTable("RecipeAllergens");
                 });
 
             modelBuilder.Entity("CookingBook.Data.Models.Review", b =>
@@ -405,21 +433,6 @@ namespace CookingBook.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Settings");
-                });
-
-            modelBuilder.Entity("CookingBook.Data.Models.UserAllergen", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AllergenId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "AllergenId");
-
-                    b.HasIndex("AllergenId");
-
-                    b.ToTable("UserAllergens");
                 });
 
             modelBuilder.Entity("CookingBook.Data.Models.UserCookedRecipe", b =>
@@ -565,6 +578,15 @@ namespace CookingBook.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CookingBook.Data.Models.Product", b =>
+                {
+                    b.HasOne("CookingBook.Data.Models.Recipe", "Recipe")
+                        .WithOne("Products")
+                        .HasForeignKey("CookingBook.Data.Models.Product", "RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CookingBook.Data.Models.Recipe", b =>
                 {
                     b.HasOne("CookingBook.Data.Models.Category", "Category")
@@ -580,21 +602,6 @@ namespace CookingBook.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CookingBook.Data.Models.RecipeAllergen", b =>
-                {
-                    b.HasOne("CookingBook.Data.Models.Allergen", "Allergen")
-                        .WithMany()
-                        .HasForeignKey("AllergenId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CookingBook.Data.Models.Recipe", "Recipe")
-                        .WithMany("Allergens")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CookingBook.Data.Models.Review", b =>
                 {
                     b.HasOne("CookingBook.Data.Models.Recipe", "Recipe")
@@ -604,21 +611,6 @@ namespace CookingBook.Data.Migrations
                     b.HasOne("CookingBook.Data.Models.ApplicationUser", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("CookingBook.Data.Models.UserAllergen", b =>
-                {
-                    b.HasOne("CookingBook.Data.Models.Allergen", "Allergen")
-                        .WithMany()
-                        .HasForeignKey("AllergenId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CookingBook.Data.Models.ApplicationUser", "User")
-                        .WithMany("Allergens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CookingBook.Data.Models.UserCookedRecipe", b =>

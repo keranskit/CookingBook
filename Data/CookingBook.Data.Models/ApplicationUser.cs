@@ -19,7 +19,6 @@ namespace CookingBook.Data.Models
 
             this.Recipes = new HashSet<Recipe>();
             this.Reviews = new HashSet<Review>();
-            this.Allergens = new HashSet<UserAllergen>();
             this.CookedRecipes = new HashSet<UserCookedRecipe>();
             this.FavoriteRecipes = new HashSet<UserFavoriteRecipe>();
         }
@@ -48,8 +47,6 @@ namespace CookingBook.Data.Models
         public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<Recipe> Recipes { get; set; }
-
-        public virtual ICollection<UserAllergen> Allergens { get; set; }
 
         public virtual ICollection<UserCookedRecipe> CookedRecipes { get; set; }
 

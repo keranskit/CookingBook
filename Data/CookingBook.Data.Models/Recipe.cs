@@ -12,7 +12,6 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Reviews = new HashSet<Review>();
-            this.Allergens = new HashSet<RecipeAllergen>();
             this.CookedBy = new HashSet<UserCookedRecipe>();
             this.FavoriteBy = new HashSet<UserFavoriteRecipe>();
         }
@@ -21,9 +20,11 @@
 
         public string Photo { get; set; }
 
-        public string ProductNeeded { get; set; }
+        public string ProductId { get; set; }
 
-        public int PrepareTime { get; set; }
+        public virtual Product Products { get; set; }
+
+        public string CookProcedure { get; set; }
 
         public int CookTime { get; set; }
 
@@ -45,10 +46,6 @@
         public virtual ICollection<UserFavoriteRecipe> FavoriteBy { get; set; }
 
         public virtual ICollection<UserCookedRecipe> CookedBy { get; set; }
-
-        public int AllergenId { get; set; }
-
-        public virtual ICollection<RecipeAllergen> Allergens { get; set; }
 
         public string ReviewId { get; set; }
 

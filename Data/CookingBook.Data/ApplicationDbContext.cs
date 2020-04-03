@@ -27,17 +27,13 @@
 
         public DbSet<Setting> Settings { get; set; }
 
-        public DbSet<Allergen> Allergens { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
 
-        public DbSet<RecipeAllergen> RecipeAllergens { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
-
-        public DbSet<UserAllergen> UserAllergens { get; set; }
 
         public DbSet<UserCookedRecipe> UserCookedRecipes { get; set; }
 
@@ -112,20 +108,6 @@
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Many-to-many unidirectional relationship between Users and Allergens
-            builder.Entity<UserAllergen>()
-                .HasKey(ua => new { ua.UserId, ua.AllergenId });
-
-            builder.Entity<UserAllergen>()
-                .HasOne(ua => ua.User)
-                .WithMany(u => u.Allergens)
-                .HasForeignKey(ua => ua.UserId);
-
-            builder.Entity<UserAllergen>()
-                .HasOne(ua => ua.Allergen)
-                .WithMany()
-                .HasForeignKey(ua => ua.AllergenId);
-
             // Many-to-many relationship between Users and Recipes
             builder.Entity<UserFavoriteRecipe>()
                 .HasKey(ufr => new { ufr.UserId, ufr.RecipeId });
@@ -154,20 +136,6 @@
                 .WithMany(r => r.CookedBy)
                 .HasForeignKey(ucr => ucr.RecipeId);
 
-            // Many-to-many unidirectional relationship between Recipes and Allergens
-            builder.Entity<RecipeAllergen>()
-                .HasKey(ra => new { ra.RecipeId, ra.AllergenId });
-
-            builder.Entity<RecipeAllergen>()
-                .HasOne(ra => ra.Recipe)
-                .WithMany(r => r.Allergens)
-                .HasForeignKey(ra => ra.RecipeId);
-
-            builder.Entity<RecipeAllergen>()
-                .HasOne(ra => ra.Allergen)
-                .WithMany()
-                .HasForeignKey(ra => ra.AllergenId);
-
             // Unique constraints
             builder.Entity<Category>()
                 .HasIndex(x => x.Title)
@@ -178,6 +146,12 @@
                 .HasOne(r => r.NutritionValue)
                 .WithOne(nv => nv.Recipe)
                 .HasForeignKey<NutritionValue>(nv => nv.RecipeId);
+
+            builder.Entity<Recipe>()
+                .HasOne(p => p.Products)
+                .WithOne(r => r.Recipe)
+                .HasForeignKey<Product>(r => r.RecipeId);
+
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

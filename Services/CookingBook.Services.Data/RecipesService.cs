@@ -25,7 +25,5 @@
         {
             return this.recipeRepository.All().To<T>().ToList();
         }
-
-
     }
 }
