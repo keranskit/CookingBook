@@ -25,5 +25,10 @@
         {
             return this.recipeRepository.All().To<T>().ToList();
         }
+
+        public IEnumerable<T> GetByCategoryId<T>(int categoryId)
+        {
+            return this.recipeRepository.All().Where(x => x.CategoryId == categoryId).To<T>().ToList();
+        }
     }
 }

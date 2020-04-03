@@ -2,15 +2,28 @@
 {
     using System.Diagnostics;
 
-    using CookingBook.Web.ViewModels;
-
+    using CookingBook.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
+    using CookingBook.Services.Data;
+    using ViewModels;
 
     public class HomeController : BaseController
     {
+        private readonly ICategoriesService categoriesService;
+
+        public HomeController(ICategoriesService categoriesService)
+        {
+            this.categoriesService = categoriesService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = new IndexViewModel()
+            {
+                Categories =
+                    this.categoriesService.GetAll<IndexCategoryViewModel>(),
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

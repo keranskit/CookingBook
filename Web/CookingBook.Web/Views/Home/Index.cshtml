@@ -1,11 +1,18 @@
 ﻿@using CookingBook.Common
+@model CookingBook.Web.ViewModels.Home.IndexViewModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@GlobalConstants.SystemName!</h1>
 </div>
-
-
+<hr />
+@foreach (var category in Model.Categories)
+{
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="/Categories/ById/@category.Id">@category.Title</a>
+        </li>
+    </ul>
+}

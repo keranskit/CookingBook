@@ -14,20 +14,28 @@
     {
         private readonly ICategoriesService categoriesService;
         private readonly IDeletableEntityRepository<Category> categoryRepository;
+        private readonly IRecipesService recipesService;
 
-        public CategoriesController(ICategoriesService categoriesService, IDeletableEntityRepository<Category> categoryRepository)
+        public CategoriesController(
+            ICategoriesService categoriesService, 
+            IDeletableEntityRepository<Category> categoryRepository,
+            IRecipesService recipesService)
         {
             this.categoriesService = categoriesService;
             this.categoryRepository = categoryRepository;
+            this.recipesService = recipesService;
         }
 
-        [HttpGet]
-        public IActionResult Index()
+        public IActionResult ById(int id)
         {
-            var categories = this.categoriesService.GetAll<CategoriesViewModel>().ToList();
-            var model = new CategoriesListViewModel(){Categories = categories};
-            return this.View(model);
-        }
+            var viewModel = this.categoriesService.GetById<CategoryViewModel>(id);
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
+            viewModel.Recipes = this.recipesService.GetByCategoryId<RecipeInCategoryViewModel>(id);
+            return this.View(viewModel);
+        }
     }
 }

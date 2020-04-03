@@ -5,10 +5,10 @@
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
 
-    public class CategoriesViewModel : IMapFrom<Category>
+    public class CategoryViewModel : IMapFrom<Category>
     {
         public string Title { get; set; }
 
-
+        public IEnumerable<RecipeInCategoryViewModel> Recipes { get; set; }
     }
 }

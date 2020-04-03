@@ -25,5 +25,13 @@
         {
             return this.categoryRepository.All().To<T>().ToList();
         }
+
+        public T GetById<T>(int Id)
+        {
+            var category = this.categoryRepository.All()
+                .Where(x => x.Id == Id)
+                .To<T>().FirstOrDefault();
+            return category;
+        }
     }
 }
