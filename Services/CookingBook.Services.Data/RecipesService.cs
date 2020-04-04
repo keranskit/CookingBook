@@ -23,12 +23,20 @@
 
         public IEnumerable<T> GetAll<T>()
         {
-            return this.recipeRepository.All().To<T>().ToList();
+            return this.recipeRepository.All().Where(x => x.IsDeleted == false).To<T>().ToList();
         }
 
         public IEnumerable<T> GetByCategoryId<T>(int categoryId)
         {
-            return this.recipeRepository.All().Where(x => x.CategoryId == categoryId).To<T>().ToList();
+            return this.recipeRepository.All().Where(x => x.CategoryId == categoryId).Where(x => x.IsDeleted == false).To<T>().ToList();
+        }
+
+        public T GetById<T>(string recipeId)
+        {
+            var post = this.recipeRepository.All().Where(x => x.Id == recipeId).Where(x => x.IsDeleted == false)
+                .To<T>().FirstOrDefault();
+            
+            return post;
         }
     }
 }

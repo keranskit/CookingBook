@@ -9,5 +9,7 @@
         IEnumerable<T> GetAll<T>();
 
         IEnumerable<T> GetByCategoryId<T>(int categoryId);
+
+        T GetById<T>(string recipeId);
     }
 }

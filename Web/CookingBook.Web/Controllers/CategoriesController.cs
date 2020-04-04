@@ -33,7 +33,7 @@
             {
                 return this.NotFound();
             }
-
+            
             viewModel.Recipes = this.recipesService.GetByCategoryId<RecipeInCategoryViewModel>(id);
             return this.View(viewModel);
         }
