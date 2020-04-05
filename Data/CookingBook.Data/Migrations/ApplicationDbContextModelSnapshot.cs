@@ -248,50 +248,12 @@ namespace CookingBook.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Product1")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Product10")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product11")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product12")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product13")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product14")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product15")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product5")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product6")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product7")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product8")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product9")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
 
                     b.Property<string>("RecipeId")
                         .IsRequired()
@@ -301,8 +263,7 @@ namespace CookingBook.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("RecipeId")
-                        .IsUnique();
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("Products");
                 });
@@ -337,12 +298,6 @@ namespace CookingBook.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReviewId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Serving")
@@ -581,16 +536,16 @@ namespace CookingBook.Data.Migrations
             modelBuilder.Entity("CookingBook.Data.Models.Product", b =>
                 {
                     b.HasOne("CookingBook.Data.Models.Recipe", "Recipe")
-                        .WithOne("Products")
-                        .HasForeignKey("CookingBook.Data.Models.Product", "RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Products")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("CookingBook.Data.Models.Recipe", b =>
                 {
                     b.HasOne("CookingBook.Data.Models.Category", "Category")
-                        .WithMany("Recipes")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

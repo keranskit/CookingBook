@@ -14,15 +14,14 @@
             this.Reviews = new HashSet<Review>();
             this.CookedBy = new HashSet<UserCookedRecipe>();
             this.FavoriteBy = new HashSet<UserFavoriteRecipe>();
+            this.Products = new HashSet<Product>();
         }
 
         public string Title { get; set; }
 
         public string Photo { get; set; }
-
-        public string ProductId { get; set; }
-
-        public virtual Product Products { get; set; }
+        
+        public virtual ICollection<Product> Products { get; set; }
 
         public string CookProcedure { get; set; }
 
@@ -46,9 +45,7 @@
         public virtual ICollection<UserFavoriteRecipe> FavoriteBy { get; set; }
 
         public virtual ICollection<UserCookedRecipe> CookedBy { get; set; }
-
-        public string ReviewId { get; set; }
-
+        
         public virtual ICollection<Review> Reviews { get; set; }
     }
 }

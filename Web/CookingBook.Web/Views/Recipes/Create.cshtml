@@ -1,0 +1,90 @@
+﻿@model CookingBook.Web.ViewModels.Recipes.RecipeCreateViewModel
+@{
+    ViewData["Title"] = "Create";
+    var categories = Model.Categories.Select(x => new SelectListItem(x.Title, x.Id.ToString()));
+}
+
+<h1>Create</h1>
+
+<form asp-controller="Recipes" asp-action="Create" method="post">
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CookProcedure"></label>
+        <input asp-for="CookProcedure" class="form-control" />
+        <span asp-validation-for="CookProcedure" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Photo"></label>
+        <input asp-for="Photo" class="form-control" />
+        <span asp-validation-for="Photo" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CookTime"></label>
+        <input asp-for="CookTime" class="form-control" />
+        <span asp-validation-for="CookTime" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Serving"></label>
+        <input asp-for="Serving" class="form-control" />
+        <span asp-validation-for="Serving" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="NutritionValue.Calories"></label>
+        <input asp-for="NutritionValue.Calories" class="form-control" />
+        <span asp-validation-for="NutritionValue.Calories" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="NutritionValue.Carbohydrates"></label>
+        <input asp-for="NutritionValue.Carbohydrates" class="form-control" />
+        <span asp-validation-for="NutritionValue.Carbohydrates" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="NutritionValue.Fats"></label>
+        <input asp-for="NutritionValue.Fats" class="form-control" />
+        <span asp-validation-for="NutritionValue.Fats" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="NutritionValue.Fiber"></label>
+        <input asp-for="NutritionValue.Fiber" class="form-control" />
+        <span asp-validation-for="NutritionValue.Fiber" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="NutritionValue.Protein"></label>
+        <input asp-for="NutritionValue.Protein" class="form-control" />
+        <span asp-validation-for="NutritionValue.Protein" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="NutritionValue.Salt"></label>
+        <input asp-for="NutritionValue.Salt" class="form-control" />
+        <span asp-validation-for="NutritionValue.Salt" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="NutritionValue.Sugar"></label>
+        <input asp-for="NutritionValue.Sugar" class="form-control" />
+        <span asp-validation-for="NutritionValue.Sugar" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" asp-items="categories" class="form-control"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Products"></label>
+        <input id="ProductsCount" class="form-control" type="number" />
+        <span asp-validation-for="Products" class="text-danger"></span>
+    </div>
+    <div>
+        <a href="#" class="btn btn-success" onclick="ShowProducts()">Add products</a>
+    </div>
+
+    <div id="buttonForProduct">
+
+    </div>
+
+    <hr />
+    <input type="submit" class="btn btn-primary" />
+</form>

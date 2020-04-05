@@ -141,17 +141,11 @@
                 .HasIndex(x => x.Title)
                 .IsUnique();
 
-            // One-to-One relationship between Recipes and NutritionalValues
+            // One-to-one 
             builder.Entity<Recipe>()
                 .HasOne(r => r.NutritionValue)
                 .WithOne(nv => nv.Recipe)
                 .HasForeignKey<NutritionValue>(nv => nv.RecipeId);
-
-            builder.Entity<Recipe>()
-                .HasOne(p => p.Products)
-                .WithOne(r => r.Recipe)
-                .HasForeignKey<Product>(r => r.RecipeId);
-
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

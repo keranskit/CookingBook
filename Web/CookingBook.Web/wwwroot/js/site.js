@@ -2,3 +2,19 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+function ShowProducts() {
+        var productCount = $("#ProductsCount").val();
+        var html = "";
+        var i;
+        for (i = 0; i < productCount; i++) {
+            html +=
+                "<div><div><label>Product</label>" +
+                "<input name=" + 'Name' + " class=" + "'form-control'" + " type=" + "'text'" + "/>" + "<input name=" + 'Quantity' +
+                " class=" + "'form-control'" + " type=" + "'number'" + "/></div>";
+
+        }
+        console.log(html);
+        document.getElementById("buttonForProduct").innerHTML = html;
+        return false;
+        }

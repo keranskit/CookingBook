@@ -208,14 +208,12 @@ namespace CookingBook.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Photo = table.Column<string>(nullable: true),
-                    ProductId = table.Column<string>(nullable: true),
                     CookProcedure = table.Column<string>(nullable: true),
                     CookTime = table.Column<int>(nullable: false),
                     Serving = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
                     NutritionValueId = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false),
-                    ReviewId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -272,21 +270,8 @@ namespace CookingBook.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Product1 = table.Column<string>(nullable: true),
-                    Product2 = table.Column<string>(nullable: true),
-                    Product3 = table.Column<string>(nullable: true),
-                    Product4 = table.Column<string>(nullable: true),
-                    Product5 = table.Column<string>(nullable: true),
-                    Product6 = table.Column<string>(nullable: true),
-                    Product7 = table.Column<string>(nullable: true),
-                    Product8 = table.Column<string>(nullable: true),
-                    Product9 = table.Column<string>(nullable: true),
-                    Product10 = table.Column<string>(nullable: true),
-                    Product11 = table.Column<string>(nullable: true),
-                    Product12 = table.Column<string>(nullable: true),
-                    Product13 = table.Column<string>(nullable: true),
-                    Product14 = table.Column<string>(nullable: true),
-                    Product15 = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Quantity = table.Column<double>(nullable: false),
                     RecipeId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -297,7 +282,7 @@ namespace CookingBook.Data.Migrations
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -458,8 +443,7 @@ namespace CookingBook.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Products_RecipeId",
                 table: "Products",
-                column: "RecipeId",
-                unique: true);
+                column: "RecipeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recipes_CategoryId",

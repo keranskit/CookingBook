@@ -5,7 +5,7 @@
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
 
-    public class RecipeCreateNutritionValuesViewModel : IMapFrom<NutritionValue>, IMapTo<NutritionValue>
+    public class RecipeCreateNutritionValuesViewModel : IMapTo<NutritionValue>
     {
         [Required]
         [Range(0, int.MaxValue)]

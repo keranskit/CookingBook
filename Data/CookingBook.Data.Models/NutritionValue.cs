@@ -11,7 +11,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
         }
-
+        
         public int Calories { get; set; }
 
         public int Fats { get; set; }

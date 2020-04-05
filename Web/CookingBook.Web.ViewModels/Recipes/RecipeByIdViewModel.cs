@@ -1,11 +1,11 @@
 ﻿namespace CookingBook.Web.ViewModels.Recipes
 {
     using System.Collections.Generic;
-
+    using AutoMapper;
     using Data.Models;
     using Services.Mapping;
 
-    public class RecipeByIdViewModel : IMapFrom<Recipe>
+    public class RecipeByIdViewModel : IMapFrom<Recipe>, IHaveCustomMappings
     {
         public string Id { get; set; }
         
@@ -13,9 +13,7 @@
 
         public string Photo { get; set; }
 
-        public string ProductId { get; set; }
-
-        public virtual Product Products { get; set; }
+        public ICollection<RecipeByIdProductsViewModel> Products { get; set; }
 
         public string CookProcedure { get; set; }
 
@@ -23,24 +21,22 @@
 
         public int Serving { get; set; }
 
-        public int CategoryId { get; set; }
+        public string CategoryTitle { get; set; }
 
-        public virtual Category Category { get; set; }
+        public NutritionValueForRecipeViewModel NutritionValue { get; set; }
 
-        public string NutritionValueId { get; set; }
+        public string UserName { get; set; }
 
-        public virtual NutritionValue NutritionValue { get; set; }
+        public int FavoriteBy { get; set; }
 
-        public string UserId { get; set; }
+        // public virtual ICollection<UserCookedRecipe> CookedBy { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public ICollection<ReviewForRecipeViewModel> Reviews { get; set; }
 
-        public virtual ICollection<UserFavoriteRecipe> FavoriteBy { get; set; }
-
-        public virtual ICollection<UserCookedRecipe> CookedBy { get; set; }
-
-        public string ReviewId { get; set; }
-
-        public virtual ICollection<Review> Reviews { get; set; }
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Recipe, RecipeByIdViewModel>()
+                .ForMember(x => x.FavoriteBy, s => s.MapFrom(x => x.FavoriteBy.Count));
+        }
     }
 }
