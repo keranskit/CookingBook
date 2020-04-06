@@ -31,6 +31,7 @@
             this.userManager = userManager;
         }
 
+        // Todo: make the view more user friendly
         public IActionResult ById(string id)
         {
             var viewModel = this.recipesService.GetById<RecipeByIdViewModel>(id);

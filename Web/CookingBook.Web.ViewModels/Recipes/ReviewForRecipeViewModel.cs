@@ -6,12 +6,12 @@
 
     public class ReviewForRecipeViewModel : IMapFrom<Review>
     {
-        public string Review { get; set; }
+        public string Comment { get; set; }
 
         public string RecipeId { get; set; }
 
         public string UserId { get; set; }
 
-        public string SanitizedReview => new HtmlSanitizer().Sanitize(this.Review);
+        public string SanitizedReview => new HtmlSanitizer().Sanitize(this.Comment);
     }
 }

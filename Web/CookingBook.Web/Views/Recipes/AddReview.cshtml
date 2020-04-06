@@ -8,9 +8,9 @@
 
 <form asp-controller="Recipes" asp-action="AddReview" method="post">
     <input type="hidden" name="recipeId" value="@this.Model.RecipeId" />
-    <label asp-for="Review"></label>
-    <input asp-for="Review" class="form-control" />
-    <span asp-validation-for="Review" class="text-danger"></span>
+    <label asp-for="Comment"></label>
+    <input asp-for="Comment" class="form-control" />
+    <span asp-validation-for="Comment" class="text-danger"></span>
     <hr />
     <input type="submit" class="btn btn-primary" />
 </form>
