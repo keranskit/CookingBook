@@ -21,7 +21,8 @@
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public RecipesController(IRecipesService recipesService,
+        public RecipesController(
+            IRecipesService recipesService,
             ICategoriesService categoriesService,
             UserManager<ApplicationUser> userManager)
         {
@@ -74,6 +75,31 @@
             var recipeId = await this.recipesService.CreateAsync(model, userId, sessionKeysList, sessionValuesList);
 
             return this.RedirectToAction(nameof(this.ById), new { id = recipeId });
+        }
+
+        [Authorize]
+        public IActionResult AddReview(string id)
+        {
+            var model = new ReviewForRecipeViewModel
+            {
+                RecipeId = id,
+            };
+            return this.View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddReview(ReviewForRecipeViewModel model)
+        {
+            model.UserId = this.userManager.GetUserId(this.User);
+            if (!ModelState.IsValid)
+            {
+                return this.Content("Not this time, Johny!");
+            }
+
+            await this.recipesService.AddReview(model);
+
+            return this.RedirectToAction(nameof(this.ById), new { id = model.RecipeId });
         }
     }
 }

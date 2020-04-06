@@ -1,12 +1,17 @@
 ﻿namespace CookingBook.Web.ViewModels.Recipes
 {
-    using Data.Models;
-    using Services.Mapping;
+    using CookingBook.Data.Models;
+    using CookingBook.Services.Mapping;
+    using Ganss.XSS;
 
     public class ReviewForRecipeViewModel : IMapFrom<Review>
     {
-        public string UserName { get; set; }
+        public string Review { get; set; }
 
-        public string Comment { get; set; }
+        public string RecipeId { get; set; }
+
+        public string UserId { get; set; }
+
+        public string SanitizedReview => new HtmlSanitizer().Sanitize(this.Review);
     }
 }

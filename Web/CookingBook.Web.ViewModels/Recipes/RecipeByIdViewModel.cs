@@ -1,6 +1,7 @@
 ﻿namespace CookingBook.Web.ViewModels.Recipes
 {
     using System.Collections.Generic;
+    using System.Linq;
     using AutoMapper;
     using Data.Models;
     using Services.Mapping;

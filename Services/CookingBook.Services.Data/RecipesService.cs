@@ -9,6 +9,7 @@
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
     using CookingBook.Web.ViewModels.Recipes;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Migrations.Operations;
     using Microsoft.Extensions.Primitives;
 
@@ -104,6 +105,29 @@
             }
 
             return id;
+        }
+
+        public async Task<string> AddReview(ReviewForRecipeViewModel model)
+        {
+            this.recipeRepository.All().FirstOrDefault(x => x.Id == model.RecipeId).Reviews.Add(new Review
+            {
+                Comment = model.SanitizedReview,
+                RecipeId = model.RecipeId,
+                UserId = model.UserId,
+            });
+            await this.recipeRepository.SaveChangesAsync();
+
+            return model.RecipeId;
+        }
+
+        public Task<string> CookRecipe(string recipeId, string userId)
+        {
+            return null;
+        }
+
+        public Task<string> AddToFavorites(string recipeId, string userId)
+        {
+            return null;
         }
     }
 }

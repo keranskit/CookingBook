@@ -3,43 +3,49 @@
     ViewData["Title"] = "ById";
 }
 
-    <div class="container-fluid">
-        <img src="@Model.Photo" alt="Picture of the recipe"/>
-        <h3>@Model.Title</h3>
-        <div class="btn btn-primary">Add To Favorites</div>
-        <div class="btn btn-primary">Add To Cooked</div>
-        <div>
-            @Model.CookTime minutes, @Model.Serving servings, Favorited by @Model.FavoriteBy users
-        </div>
-        <hr />
-        <div>
-            <ul>
-                <h5>Ingredients</h5>
-                @foreach (var product in Model.Products)
-                {
-                    <li>@product.Quantity @product.Name</li>
-                }
-            </ul>
-        </div>
-        <hr />
-        <div>
-            <ul>
-                <li>@Model.NutritionValue.Calories Calories</li>
-                <li>@Model.NutritionValue.Carbohydrates Carbohydrates</li>
-                <li>@Model.NutritionValue.Fats Fats</li>
-                <li>@Model.NutritionValue.Fiber Fiber</li>
-                <li>@Model.NutritionValue.Protein Protein</li>
-                <li>@Model.NutritionValue.Salt Salt</li>
-                <li>@Model.NutritionValue.Sugar Sugar</li>
-            </ul>
-        </div>
-        <hr />
-        <div>
-            @Model.CookProcedure
-        </div>
-        <hr />
-        <div>
-            <h5>@Model.UserName is the author of this recipe</h5>
-        </div>
-        <hr />
+<div class="container-fluid">
+    <img src="@Model.Photo" alt="Picture of the recipe" />
+    <h3>@Model.Title</h3>
+    <div class="btn btn-primary">Add To Favorites</div>
+    <div class="btn btn-primary">Add To Cooked</div>
+    <div>
+        @Model.CookTime minutes, @Model.Serving servings, Favorited by @Model.FavoriteBy users
     </div>
+    <hr />
+    <div>
+        <ul>
+            <h5>Ingredients</h5>
+            @foreach (var product in Model.Products)
+            {
+                <li>@product.Quantity @product.Name</li>
+            }
+        </ul>
+    </div>
+    <hr />
+    <div>
+        <ul>
+            <li>@Model.NutritionValue.Calories Calories</li>
+            <li>@Model.NutritionValue.Carbohydrates Carbohydrates</li>
+            <li>@Model.NutritionValue.Fats Fats</li>
+            <li>@Model.NutritionValue.Fiber Fiber</li>
+            <li>@Model.NutritionValue.Protein Protein</li>
+            <li>@Model.NutritionValue.Salt Salt</li>
+            <li>@Model.NutritionValue.Sugar Sugar</li>
+        </ul>
+    </div>
+    <hr />
+    <div>
+        @Model.CookProcedure
+    </div>
+    <hr />
+    <div>
+        <h5>@Model.UserName is the author of this recipe</h5>
+    </div>
+    <hr />
+</div>
+<a class="btn btn-primary" href="/Recipes/AddReview/@Model.Id" role="button">Add new Review</a>
+<hr/>
+@foreach (var review in Model.Reviews)
+{
+    <div>@review.Review @review.SanitizedReview</div>
+}
