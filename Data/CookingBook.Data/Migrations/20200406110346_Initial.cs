@@ -271,7 +271,7 @@ namespace CookingBook.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    Quantity = table.Column<double>(nullable: false),
+                    Quantity = table.Column<decimal>(nullable: false),
                     RecipeId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>

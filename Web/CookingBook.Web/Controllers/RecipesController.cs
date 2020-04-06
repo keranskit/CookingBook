@@ -21,7 +21,7 @@
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public RecipesController(IRecipesService recipesService, 
+        public RecipesController(IRecipesService recipesService,
             ICategoriesService categoriesService,
             UserManager<ApplicationUser> userManager)
         {
@@ -49,14 +49,12 @@
             return this.View(viewModel);
         }
 
+        // Todo: View beautify
+        // Todo: Validate input negative and zero for Product Quantity
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateAsync(RecipeCreateViewModel model)
         {
-            // Todo: Validate input double for Product Quantity
-            // Todo: Validate input negative and zero for Product Quantity
-            // Todo: View beautify
-
             var userId = this.userManager.GetUserId(this.User);
 
             var sessionKeys = this.HttpContext.Request.Form.TryGetValue("Name", out var sessionKeysList);

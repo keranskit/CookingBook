@@ -12,7 +12,7 @@
         public string Name { get; set; }
 
         [Required]
-        [Range(0, double.MaxValue)]
-        public double Quantity { get; set; }
+        [Range(0, 1000)]
+        public decimal Quantity { get; set; }
     }
 }

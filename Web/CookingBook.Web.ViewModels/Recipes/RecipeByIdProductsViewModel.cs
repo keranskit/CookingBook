@@ -16,7 +16,7 @@ namespace CookingBook.Web.ViewModels.Recipes
         public string Name { get; set; }
 
         [Required]
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [Required]
         public string RecipeId { get; set; }

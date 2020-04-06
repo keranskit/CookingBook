@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
     using CookingBook.Data.Common.Repositories;
@@ -46,7 +47,7 @@
         {
             var recipe = this.recipeRepository.All().Where(x => x.Id == recipeId && x.IsDeleted == false)
                 .To<T>().FirstOrDefault();
-            
+
             return recipe;
         }
 
@@ -66,20 +67,20 @@
                 UserId = userId,
                 CreatedOn = DateTime.UtcNow,
             });
-            await this.recipeRepository.SaveChangesAsync();
+            
+            bool isCorrectlyParsed = false;
 
             for (int i = 0; i < sessionKeysList.Count; i++)
             {
+                isCorrectlyParsed = decimal.TryParse(sessionValuesList[i], NumberStyles.Number, CultureInfo.InvariantCulture, out var parsed);
                 await this.productRepository.AddAsync(new Product
                 {
                     Id = Guid.NewGuid().ToString(),
                     RecipeId = id,
                     Name = sessionKeysList[i].ToString(),
-                    Quantity = double.Parse(sessionValuesList[i]),
+                    Quantity = parsed,
                 });
             }
-
-            await this.productRepository.SaveChangesAsync();
 
             await this.nutritionRepository.AddAsync(new NutritionValue
             {
@@ -94,8 +95,14 @@
                 Sugar = model.NutritionValue.Sugar,
                 CreatedOn = DateTime.UtcNow,
             });
-            await this.nutritionRepository.SaveChangesAsync();
-            
+
+            if (isCorrectlyParsed)
+            {
+                await this.recipeRepository.SaveChangesAsync();
+                await this.productRepository.SaveChangesAsync();
+                await this.nutritionRepository.SaveChangesAsync();
+            }
+
             return id;
         }
     }
