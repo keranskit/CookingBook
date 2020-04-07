@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.Primitives;
+
     using CookingBook.Web.ViewModels.Recipes;
+    using Microsoft.Extensions.Primitives;
 
     public interface IRecipesService
     {
@@ -19,7 +20,7 @@
 
         Task<string> AddReview(ReviewForRecipeViewModel model);
 
-        Task<string> CookRecipe(string recipeId, string userId);
+        Task<int> CookRecipe(string recipeId, string userId);
 
         Task<string> AddToFavorites(string recipeId, string userId);
     }

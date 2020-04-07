@@ -1,7 +1,7 @@
 ﻿namespace CookingBook.Web.ViewModels.Home
 {
-    using Data.Models;
-    using Services.Mapping;
+    using CookingBook.Data.Models;
+    using CookingBook.Services.Mapping;
 
     public class IndexCategoryViewModel : IMapFrom<Category>
     {

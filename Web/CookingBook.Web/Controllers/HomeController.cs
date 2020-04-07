@@ -2,10 +2,10 @@
 {
     using System.Diagnostics;
 
+    using CookingBook.Services.Data;
+    using CookingBook.Web.ViewModels;
     using CookingBook.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
-    using CookingBook.Services.Data;
-    using ViewModels;
 
     public class HomeController : BaseController
     {

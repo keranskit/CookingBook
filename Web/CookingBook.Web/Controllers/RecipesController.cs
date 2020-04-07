@@ -7,9 +7,9 @@
     using System.Threading.Tasks;
 
     using CookingBook.Data;
+    using CookingBook.Data.Models;
     using CookingBook.Services.Data;
     using CookingBook.Web.ViewModels.Recipes;
-    using Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -31,7 +31,8 @@
             this.userManager = userManager;
         }
 
-        // Todo: make the view more user friendly
+        // Todo: Make the view more user friendly
+        // Todo: Make the comments like the forum
         public IActionResult ById(string id)
         {
             var viewModel = this.recipesService.GetById<RecipeByIdViewModel>(id);
@@ -63,7 +64,7 @@
 
             var sessionValues = this.HttpContext.Request.Form.TryGetValue("Quantity", out var sessionValuesList);
 
-            if (!(ModelState.IsValid || sessionKeys || sessionValues))
+            if (!(this.ModelState.IsValid || sessionKeys || sessionValues))
             {
                 return this.Content("Something went wrong!");
             }
@@ -93,7 +94,7 @@
         public async Task<IActionResult> AddReview(ReviewForRecipeViewModel model)
         {
             model.UserId = this.userManager.GetUserId(this.User);
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.Content("Not this time, Johny!");
             }
@@ -101,6 +102,29 @@
             await this.recipesService.AddReview(model);
 
             return this.RedirectToAction(nameof(this.ById), new { id = model.RecipeId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddToFavorites(RecipeByIdViewModel model)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+            var response = await this.recipesService.AddToFavorites(model.Id, userId);
+            return this.Content(response.ToString());
+        }
+
+        [Authorize]
+        public async Task<IActionResult> CookRecipe(string recipeId)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+            var response = await this.recipesService.CookRecipe(recipeId, userId);
+            return this.Content(response.ToString());
+        }
+
+        [HttpPost]
+        public IActionResult EditRecipe(string Id)
+        {
+            return Ok();
         }
     }
 }

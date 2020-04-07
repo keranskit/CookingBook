@@ -1,0 +1,29 @@
+﻿@using CookingBook.Common
+@model CookingBook.Web.ViewModels.Profile.ProfileViewModel
+@{
+    this.ViewData["Title"] = "Profile";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@GlobalConstants.SystemName!</h1>
+</div>
+@foreach (var recipe in Model.Recipes)
+{
+    <div class="btn-toolbar">
+        <p>@recipe.Title </p>
+        <form asp-controller="Recipes" asp-action="EditRecipe" method="post">
+            <input type="hidden" name="Id" value="@recipe.Id"/>
+            <input type="submit" class="btn btn-outline-primary" value="EditRecipe"/>
+        </form>
+    </div>
+}
+@foreach (var rec in Model.FavoriteRecipes)
+{
+    <div class="btn-toolbar">
+        <p>@rec.RecipeTitle</p>
+        <form asp-controller="Profile" asp-action="EditMyFavorites" method="post">
+            <input type="hidden" name="Id" value="@this.Model.Id"/>
+            <input type="submit" class="btn btn-outline-primary" value="Remove from favorites"/>
+        </form>
+    </div>
+}

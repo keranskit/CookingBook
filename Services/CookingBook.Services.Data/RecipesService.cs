@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
+
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
@@ -41,7 +42,8 @@
 
         public IEnumerable<T> GetByCategoryId<T>(int categoryId)
         {
-            return this.recipeRepository.All().Where(x => x.CategoryId == categoryId).Where(x => x.IsDeleted == false).To<T>().ToList();
+            return this.recipeRepository.All().Where(x => x.CategoryId == categoryId).Where(x => x.IsDeleted == false)
+                .OrderByDescending(x => x.CreatedOn).To<T>().ToList();
         }
 
         public T GetById<T>(string recipeId)
@@ -120,14 +122,65 @@
             return model.RecipeId;
         }
 
-        public Task<string> CookRecipe(string recipeId, string userId)
+        public async Task<int> CookRecipe(string recipeId, string userId)
         {
-            return null;
+            var recipe = this.recipeRepository.All().FirstOrDefault(x => x.Id == recipeId);
+            if (recipe == null)
+            {
+                return 0;
+            }
+
+            if (recipe.CookedBy.Contains(new UserCookedRecipe() { RecipeId = recipeId, UserId = userId }))
+            {
+                return 0;
+            }
+
+            recipe.CookedBy.Add(new UserCookedRecipe()
+            {
+                RecipeId = recipeId,
+                UserId = userId,
+            });
+            await this.recipeRepository.SaveChangesAsync();
+
+            return recipe.CookedBy.Count();
         }
 
-        public Task<string> AddToFavorites(string recipeId, string userId)
+        public async Task<string> AddToFavorites(string recipeId, string userId)
         {
-            return null;
+            var recipe = this.recipeRepository.All().FirstOrDefault(x => x.Id == recipeId);
+            if (recipe == null)
+            {
+                return "Wrong recipe";
+            }
+
+            if (recipe.FavoriteBy.Contains(new UserFavoriteRecipe { RecipeId = recipeId, UserId = userId }))
+            {
+                return "Already there";
+            }
+
+            recipe.FavoriteBy.Add(new UserFavoriteRecipe
+            {
+                RecipeId = recipeId,
+                UserId = userId,
+            });
+            await this.recipeRepository.SaveChangesAsync();
+
+            return "Done";
+        }
+
+        public bool ToggleIsDeleted(string id)
+        {
+            var boolDeleted = this.recipeRepository.All().FirstOrDefault(x => x.Id == id).IsDeleted;
+            if (boolDeleted)
+            {
+                this.recipeRepository.All().FirstOrDefault(x => x.Id == id).IsDeleted = false;
+            }
+            else
+            {
+                this.recipeRepository.All().FirstOrDefault(x => x.Id == id).IsDeleted = true;
+            }
+
+            return this.recipeRepository.All().FirstOrDefault(x => x.Id == id).IsDeleted;
         }
     }
 }
