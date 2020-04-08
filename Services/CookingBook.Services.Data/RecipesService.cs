@@ -168,19 +168,13 @@
             return "Done";
         }
 
-        public bool ToggleIsDeleted(string id)
+        public async Task TurnToDeleted(string id)
         {
-            var boolDeleted = this.recipeRepository.All().FirstOrDefault(x => x.Id == id).IsDeleted;
-            if (boolDeleted)
-            {
-                this.recipeRepository.All().FirstOrDefault(x => x.Id == id).IsDeleted = false;
-            }
-            else
-            {
-                this.recipeRepository.All().FirstOrDefault(x => x.Id == id).IsDeleted = true;
-            }
-
-            return this.recipeRepository.All().FirstOrDefault(x => x.Id == id).IsDeleted;
+            var recipe = await this.recipeRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            recipe.IsDeleted = true;
+            recipe.DeletedOn = DateTime.Now;
+            this.recipeRepository.Update(recipe);
+            await this.recipeRepository.SaveChangesAsync();
         }
     }
 }

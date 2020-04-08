@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using CookingBook.Data.Models;
     using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.Extensions.Primitives;
 
@@ -23,5 +23,7 @@
         Task<int> CookRecipe(string recipeId, string userId);
 
         Task<string> AddToFavorites(string recipeId, string userId);
+
+        Task TurnToDeleted(string id);
     }
 }

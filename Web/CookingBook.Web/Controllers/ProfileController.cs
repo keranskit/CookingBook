@@ -1,24 +1,28 @@
 ﻿namespace CookingBook.Web.Controllers
 {
-    using System.Net.Mime;
-    using Data.Models;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using CookingBook.Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using Services.Data;
-    using ViewModels.Profile;
+    using CookingBook.Services.Data;
+    using CookingBook.Web.ViewModels.Profile;
 
     public class ProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IProfilesService profileService;
+        private readonly IRecipesService recipesService;
 
-        public ProfileController(UserManager<ApplicationUser> userManager, 
-            IProfilesService profileService)
+        public ProfileController(
+            UserManager<ApplicationUser> userManager, 
+            IProfilesService profileService, 
+            IRecipesService recipesService)
         {
             this.userManager = userManager;
             this.profileService = profileService;
+            this.recipesService = recipesService;
         }
 
         [Authorize]
@@ -33,13 +37,14 @@
             };
             return this.View(viewModel);
         }
-
-        public IActionResult EditMyRecipes()
+        
+        [HttpPost]
+        public async Task<IActionResult> DeleteRecipe(string id)
         {
-            var userId = this.userManager.GetUserId(this.User);
-            var viewModel = this.profileService.GetByUserId<RecipeByUserViewModel>(userId);
-            return this.View(viewModel);
+            await this.recipesService.TurnToDeleted(id);
+            return this.Content("should be ok");
         }
+
 
         /*
         [HttpPost]

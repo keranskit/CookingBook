@@ -120,11 +120,5 @@
             var response = await this.recipesService.CookRecipe(recipeId, userId);
             return this.Content(response.ToString());
         }
-
-        [HttpPost]
-        public IActionResult EditRecipe(string Id)
-        {
-            return Ok();
-        }
     }
 }

@@ -11,9 +11,9 @@
 {
     <div class="btn-toolbar">
         <p>@recipe.Title </p>
-        <form asp-controller="Recipes" asp-action="EditRecipe" method="post">
+        <form asp-controller="Profile" asp-action="DeleteRecipe" method="post">
             <input type="hidden" name="Id" value="@recipe.Id"/>
-            <input type="submit" class="btn btn-outline-primary" value="EditRecipe"/>
+            <input type="submit" class="btn btn-outline-primary" value="DeleteRecipe"/>
         </form>
     </div>
 }

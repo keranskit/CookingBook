@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
@@ -28,8 +29,9 @@
         public IEnumerable<T> GetFavoriteByUserId<T>(string userId)
         {
             return this.userRepository.All().Where(x => x.Id == userId).SelectMany(x => x.FavoriteRecipes).To<T>().ToList();
-            //var user = await this.userRepository.All().FirstOrDefaultAsync(x => x.Id == userId);
-            //var favoriteRecipes = user.FavoriteRecipes.
+
+            // var user = await this.userRepository.All().FirstOrDefaultAsync(x => x.Id == userId);
+            // var favoriteRecipes = user.FavoriteRecipes.
         }
     }
 }
