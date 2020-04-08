@@ -12,7 +12,6 @@
         <input type="hidden" name="Id" value="@this.Model.Id" />
         <input type="submit" class="btn btn-outline-primary" value="Add To Favorites" />
     </form>
-
     <form asp-controller="Recipes" asp-action="CookRecipe" method="post">
         <input type="hidden" name="Id" value="@this.Model.Id" />
         <input type="submit" class="btn btn-outline-primary" value="Cook this recipe!" />
@@ -24,7 +23,7 @@
 <hr />
 <div>
     <ul>
-        <h5>Ingredients</h5>
+        Ingredients
         @foreach (var product in Model.Products)
         {
             <li>@product.Quantity @product.Name</li>
@@ -52,7 +51,6 @@
     <h5>@Model.UserName is the author of this recipe</h5>
 </div>
 <hr />
-</div>
 <a class="btn btn-primary" href="/Recipes/AddReview/@Model.Id" role="button">Add new Review</a>
 <hr />
 @foreach (var review in Model.Reviews)

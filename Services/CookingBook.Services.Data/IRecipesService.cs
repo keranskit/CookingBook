@@ -24,6 +24,6 @@
 
         Task<string> AddToFavorites(string recipeId, string userId);
 
-        Task TurnToDeleted(string id);
+        Task SoftDelete(string id);
     }
 }

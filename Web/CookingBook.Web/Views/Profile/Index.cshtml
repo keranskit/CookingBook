@@ -11,7 +11,7 @@
 {
     <div class="btn-toolbar">
         <p>@recipe.Title </p>
-        <form asp-controller="Profile" asp-action="DeleteRecipe" method="post">
+        <form asp-controller="Profile" asp-action="ConfirmDeleteRecipe" method="post">
             <input type="hidden" name="Id" value="@recipe.Id"/>
             <input type="submit" class="btn btn-outline-primary" value="DeleteRecipe"/>
         </form>

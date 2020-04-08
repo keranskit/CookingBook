@@ -168,7 +168,7 @@
             return "Done";
         }
 
-        public async Task TurnToDeleted(string id)
+        public async Task SoftDelete(string id)
         {
             var recipe = await this.recipeRepository.All().FirstOrDefaultAsync(x => x.Id == id);
             recipe.IsDeleted = true;

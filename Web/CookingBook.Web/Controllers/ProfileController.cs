@@ -37,12 +37,20 @@
             };
             return this.View(viewModel);
         }
-        
+
+        [Authorize]
+        public IActionResult ConfirmDeleteRecipe(string id)
+        {
+            var viewModel = new RecipeToSoftDelete { Id = id };
+            return this.View(viewModel);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> DeleteRecipe(string id)
         {
-            await this.recipesService.TurnToDeleted(id);
-            return this.Content("should be ok");
+            await this.recipesService.SoftDelete(id);
+            return this.RedirectToAction(nameof(this.Index));
         }
 
 
