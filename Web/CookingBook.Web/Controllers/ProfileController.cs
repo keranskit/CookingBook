@@ -1,30 +1,34 @@
 ﻿namespace CookingBook.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using CookingBook.Data.Models;
     using CookingBook.Services.Data;
     using CookingBook.Web.ViewModels.Profile;
+    using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using ViewModels.Recipes;
 
     public class ProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IProfilesService profileService;
         private readonly IRecipesService recipesService;
+        private readonly ICategoriesService categoriesService;
 
         public ProfileController(
             UserManager<ApplicationUser> userManager, 
             IProfilesService profileService, 
-            IRecipesService recipesService)
+            IRecipesService recipesService, 
+            ICategoriesService categoriesService)
         {
             this.userManager = userManager;
             this.profileService = profileService;
             this.recipesService = recipesService;
+            this.categoriesService = categoriesService;
         }
 
         [Authorize]
@@ -61,23 +65,30 @@
         public IActionResult EditRecipe(string id)
         {
             var userId = this.userManager.GetUserId(this.User);
-            var recipe = this.recipesService.GetById<Recipe>(id);
-            var viewModel = new RecipeCreateViewModel
+            var recipe = this.recipesService.GetAll<RecipeEditViewModel>().FirstOrDefault(x => x.Id == id);
+            var categories = this.categoriesService.GetAll<CategoryDropdownViewModel>();
+            var viewModel = new RecipeEditViewModel()
             {
-                CategoryId = recipe.CategoryId,
+                Id = recipe.Id,
+                Categories = categories,
                 Photo = recipe.Photo,
                 Title = recipe.Title,
                 CookProcedure = recipe.CookProcedure,
                 CookTime = recipe.CookTime,
                 Serving = recipe.Serving,
+                CategoryId = recipe.CategoryId,
             };
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult UpdateEditedRecipe(RecipeCreateViewModel model)
+        public async Task<IActionResult> UpdateEditedRecipe(RecipeEditViewModel model)
         {
-            return this.NotFound();
+            var userId = this.userManager.GetUserId(this.User);
+
+            await this.recipesService.EditRecipe(model, userId);
+
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

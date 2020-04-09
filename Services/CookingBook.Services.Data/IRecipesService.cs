@@ -5,6 +5,7 @@
     using CookingBook.Data.Models;
     using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.Extensions.Primitives;
+    using Web.ViewModels.Profile;
 
     public interface IRecipesService
     {
@@ -25,5 +26,7 @@
         Task<string> AddToFavorites(string recipeId, string userId);
 
         Task SoftDelete(string id);
+
+        Task EditRecipe(RecipeEditViewModel model, string userId);
     }
 }

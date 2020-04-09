@@ -13,6 +13,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Migrations.Operations;
     using Microsoft.Extensions.Primitives;
+    using Web.ViewModels.Profile;
 
     public class RecipesService : IRecipesService
     {
@@ -70,7 +71,7 @@
                 UserId = userId,
                 CreatedOn = DateTime.UtcNow,
             });
-            
+
             bool isCorrectlyParsed = false;
 
             for (int i = 0; i < sessionKeysList.Count; i++)
@@ -177,17 +178,22 @@
             await this.recipeRepository.SaveChangesAsync();
         }
 
-        public async Task EditRecipe(string id, RecipeCreateViewModel model, string userId)
+        // Only the creator can edit his recipe.
+        public async Task EditRecipe(RecipeEditViewModel model, string userId)
         {
-            var recipe = await this.recipeRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-            recipe.CategoryId = model.CategoryId;
-            recipe.CookProcedure = model.SanitizedCookProcedure;
-            recipe.Title = model.Title;
-            recipe.CookTime = model.CookTime;
-            recipe.Photo = model.Photo;
-            recipe.Serving = model.Serving;
-            recipe.ModifiedOn = DateTime.UtcNow;
-            this.recipeRepository.Update(recipe);
+            var recipe = await this.recipeRepository.All().FirstOrDefaultAsync(x => x.Id == model.Id);
+            if (recipe.UserId == userId)
+            {
+                recipe.CategoryId = model.CategoryId;
+                recipe.CookProcedure = model.SanitizedCookProcedure;
+                recipe.Title = model.Title;
+                recipe.CookTime = model.CookTime;
+                recipe.Photo = model.Photo;
+                recipe.Serving = model.Serving;
+                recipe.ModifiedOn = DateTime.UtcNow;
+                this.recipeRepository.Update(recipe);
+            }
+
             await this.recipeRepository.SaveChangesAsync();
         }
     }

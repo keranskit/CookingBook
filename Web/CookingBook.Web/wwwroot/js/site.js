@@ -9,9 +9,9 @@ function ShowProducts() {
         var i;
         for (i = 0; i < productCount; i++) {
             html +=
-                "<div><div><label>Product</label>" +
-                "<input name=" + 'Name' + " class=" + "'form-control'" + " type=" + "'text'" + "/>" + "<input name=" + 'Quantity' +
-                " class=" + "'form-control'" + " type=" + "'number'" + "/></div>";
+                '<div><div><label>Product</label>' +
+                '<input name="Name" class="form-control type="text"/><input name="Quantity"' +
+                'class="form-control" type="number"/></div>';
 
         }
         console.log(html);
