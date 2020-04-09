@@ -2,12 +2,13 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using CookingBook.Data.Models;
+    using CookingBook.Services.Data;
+    using CookingBook.Web.ViewModels.Profile;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using CookingBook.Services.Data;
-    using CookingBook.Web.ViewModels.Profile;
 
     public class ProfileController : Controller
     {
@@ -38,6 +39,7 @@
             return this.View(viewModel);
         }
 
+        // Todo: edit view view
         [Authorize]
         public IActionResult ConfirmDeleteRecipe(string id)
         {
@@ -52,7 +54,6 @@
             await this.recipesService.SoftDelete(id);
             return this.RedirectToAction(nameof(this.Index));
         }
-
 
         /*
         [HttpPost]
