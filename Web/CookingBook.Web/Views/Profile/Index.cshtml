@@ -7,16 +7,23 @@
 <div class="text-center">
     <h1 class="display-4">@GlobalConstants.SystemName!</h1>
 </div>
+My recipes:
 @foreach (var recipe in Model.Recipes)
 {
     <div class="btn-toolbar">
         <p>@recipe.Title </p>
         <form asp-controller="Profile" asp-action="ConfirmDeleteRecipe" method="post">
             <input type="hidden" name="Id" value="@recipe.Id"/>
-            <input type="submit" class="btn btn-outline-primary" value="DeleteRecipe"/>
+            <input type="submit" class="btn btn-outline-danger" value="DeleteRecipe"/>
+        </form>
+        <form asp-controller="Profile" asp-action="EditRecipe" method="post">
+            <input type="hidden" name="Id" value="@recipe.Id"/>
+            <input type="submit" class="btn btn-outline-warning" value="EditRecipe"/>
         </form>
     </div>
 }
+
+My favorites:
 @foreach (var rec in Model.FavoriteRecipes)
 {
     <div class="btn-toolbar">

@@ -176,5 +176,19 @@
             this.recipeRepository.Update(recipe);
             await this.recipeRepository.SaveChangesAsync();
         }
+
+        public async Task EditRecipe(string id, RecipeCreateViewModel model, string userId)
+        {
+            var recipe = await this.recipeRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            recipe.CategoryId = model.CategoryId;
+            recipe.CookProcedure = model.SanitizedCookProcedure;
+            recipe.Title = model.Title;
+            recipe.CookTime = model.CookTime;
+            recipe.Photo = model.Photo;
+            recipe.Serving = model.Serving;
+            recipe.ModifiedOn = DateTime.UtcNow;
+            this.recipeRepository.Update(recipe);
+            await this.recipeRepository.SaveChangesAsync();
+        }
     }
 }

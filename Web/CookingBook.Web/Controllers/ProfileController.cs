@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using ViewModels.Recipes;
 
     public class ProfileController : Controller
     {
@@ -55,25 +56,28 @@
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        /*
+        [Authorize]
         [HttpPost]
-        public IActionResult EditMyRecipes()
+        public IActionResult EditRecipe(string id)
         {
             var userId = this.userManager.GetUserId(this.User);
-            var viewModel = this.profileService.GetByUserId<RecipeByUserViewModel>(userId);
-            return this.NotFound();
-        }*/
+            var recipe = this.recipesService.GetById<Recipe>(id);
+            var viewModel = new RecipeCreateViewModel
+            {
+                CategoryId = recipe.CategoryId,
+                Photo = recipe.Photo,
+                Title = recipe.Title,
+                CookProcedure = recipe.CookProcedure,
+                CookTime = recipe.CookTime,
+                Serving = recipe.Serving,
+            };
+            return this.View(viewModel);
+        }
 
-        public IActionResult EditMyFavorites()
+        [HttpPost]
+        public IActionResult UpdateEditedRecipe(RecipeCreateViewModel model)
         {
             return this.NotFound();
         }
-
-        /*
-        [HttpPost]
-        public IActionResult EditMyFavorites()
-        {
-            return this.NotFound();
-        } */
     }
 }
