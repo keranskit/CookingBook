@@ -1,0 +1,16 @@
+﻿@model CookingBook.Web.ViewModels.Administration.Main.CategoryInMain
+
+@{
+    ViewData["Title"] = "ConfirmDelete";
+}
+
+<h2>Are you sure you want to mark this recipe as deleted?</h2>
+<div class="align-content-center">
+    <form asp-controller="AdminCategory" asp-action="DeleteById" method="post">
+        <input type="hidden" name="Id" value="@Model.Id"/>
+        <input type="submit" class="btn btn-danger" value="Delete it, NOW!"/>
+    </form>
+    <form asp-controller="Main" asp-action="Index" method="get">
+        <input type="submit" class="btn btn-success" value="No, wait, don't do it!" />
+    </form>
+</div>

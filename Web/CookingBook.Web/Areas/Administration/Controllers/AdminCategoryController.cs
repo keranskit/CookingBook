@@ -1,26 +1,46 @@
 ﻿namespace CookingBook.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+    using CookingBook.Services.Data;
+    using CookingBook.Web.ViewModels.Administration.Main;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class AdminCategoryController : AdministrationController
     {
-        public AdminCategoryController()
+        private readonly ICategoriesService categoriesService;
+
+        public AdminCategoryController(ICategoriesService categoriesService)
         {
+            this.categoriesService = categoriesService;
         }
 
-        [Authorize]
         [HttpPost]
-        public IActionResult EditById(string id)
+        public IActionResult ConfirmEdit(int id, string title)
         {
-            return this.Content("edit by recipe id from ACE");
+            var viewModel = new CategoryInMain { Id = id, Title = title };
+            return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
-        public IActionResult DeleteById(string id)
+        public async Task<IActionResult> EditById(EditCategoryViewModel viewModel)
         {
-            return this.Content("edit by recipe id from ACD");
+            await this.categoriesService.EditById(viewModel.Id, viewModel.Title);
+            return this.Content("edited");
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmDelete(int id, string title)
+        {
+            var viewModel = new CategoryInMain { Id = id, Title = title };
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteById(int id)
+        {
+            await this.categoriesService.DeleteById(id);
+            return this.Content("deleted");
         }
     }
 }

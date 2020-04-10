@@ -10,5 +10,9 @@
         IEnumerable<T> GetAll<T>();
 
         T GetById<T>(int id);
+
+        Task DeleteById(int id);
+
+        Task EditById(int id, string newName);
     }
 }

@@ -1,0 +1,18 @@
+﻿@model CookingBook.Web.ViewModels.Administration.Main.CategoryInMain
+@{
+    ViewData["Title"] = "ConfirmEdit";
+}
+
+<h1>ConfirmEdit</h1>
+<div class="align-content-center">
+    <form asp-controller="AdminCategory" asp-action="EditById" method="post">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+        <input type="submit" class="btn btn-danger" value="Save Changes" />
+        <input type="hidden" name="Id" value="@Model.Id" />
+    </form>
+    <form asp-controller="Main" asp-action="Index" method="get">
+        <input type="submit" class="btn btn-success" value="Go back!" />
+    </form>
+</div>
