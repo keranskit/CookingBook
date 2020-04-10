@@ -13,12 +13,12 @@
         <input type="submit" class="btn btn-outline-primary" value="Add To Favorites" />
     </form>
     <form asp-controller="Recipes" asp-action="CookRecipe" method="post">
-        <input type="hidden" name="Id" value="@this.Model.Id" />
+        <input type="hidden" name="recipeId" value="@this.Model.Id" />
         <input type="submit" class="btn btn-outline-primary" value="Cook this recipe!" />
     </form>
 </div>
 <div>
-    @Model.CookTime minutes, @Model.Serving servings, Favorited by @Model.FavoriteBy users
+    @Model.CookTime minutes, @Model.Serving servings, Favorited by @Model.FavoriteBy users, 
 </div>
 <hr />
 <div>

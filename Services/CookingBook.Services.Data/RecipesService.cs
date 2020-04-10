@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using CookingBook.Data.Common.Models;
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
@@ -18,15 +18,18 @@
     public class RecipesService : IRecipesService
     {
         private readonly IDeletableEntityRepository<Product> productRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Recipe> recipeRepository;
         private readonly IDeletableEntityRepository<NutritionValue> nutritionRepository;
 
         public RecipesService(
             IDeletableEntityRepository<Recipe> recipeRepository,
             IDeletableEntityRepository<NutritionValue> nutritionRepository,
-            IDeletableEntityRepository<Product> productRepository)
+            IDeletableEntityRepository<Product> productRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.productRepository = productRepository;
+            this.userRepository = userRepository;
             this.recipeRepository = recipeRepository;
             this.nutritionRepository = nutritionRepository;
         }
@@ -125,38 +128,51 @@
 
         public async Task<int> CookRecipe(string recipeId, string userId)
         {
-            var recipe = this.recipeRepository.All().FirstOrDefault(x => x.Id == recipeId);
-            if (recipe == null)
+            var recipe = this.recipeRepository.All().Include(cooked => cooked.CookedBy).FirstOrDefault(x => x.Id == recipeId);
+            bool isCooked = false;
+            foreach (var pair in recipe.CookedBy)
             {
-                return 0;
+                if (pair.RecipeId == recipeId && pair.UserId == userId)
+                {
+                    isCooked = true;
+                }
             }
 
-            if (recipe.CookedBy.Contains(new UserCookedRecipe() { RecipeId = recipeId, UserId = userId }))
+            if (isCooked)
             {
-                return 0;
+                return -1;
             }
-
-            recipe.CookedBy.Add(new UserCookedRecipe()
+            else
             {
-                RecipeId = recipeId,
-                UserId = userId,
-            });
-            await this.recipeRepository.SaveChangesAsync();
+                recipe.CookedBy.Add(new UserCookedRecipe
+                {
+                    RecipeId = recipeId,
+                    UserId = userId,
+                });
+
+                this.recipeRepository.Update(recipe);
+                await this.recipeRepository.SaveChangesAsync();
+            }
 
             return recipe.CookedBy.Count();
         }
 
-        public async Task<string> AddToFavorites(string recipeId, string userId)
+        // Todo: validate it ain't already there
+        public async Task<int> AddToFavorites(string recipeId, string userId)
         {
-            var recipe = this.recipeRepository.All().FirstOrDefault(x => x.Id == recipeId);
-            if (recipe == null)
+            var recipe = this.recipeRepository.All().Include(cooked => cooked.FavoriteBy).FirstOrDefault(x => x.Id == recipeId);
+            bool isFavorited = false;
+            foreach (var pair in recipe.FavoriteBy)
             {
-                return "Wrong recipe";
+                if (pair.RecipeId == recipeId && pair.UserId == userId)
+                {
+                    isFavorited = true;
+                }
             }
 
-            if (recipe.FavoriteBy.Contains(new UserFavoriteRecipe { RecipeId = recipeId, UserId = userId }))
+            if (isFavorited)
             {
-                return "Already there";
+                return -1;
             }
 
             recipe.FavoriteBy.Add(new UserFavoriteRecipe
@@ -164,9 +180,10 @@
                 RecipeId = recipeId,
                 UserId = userId,
             });
+            this.recipeRepository.Update(recipe);
             await this.recipeRepository.SaveChangesAsync();
 
-            return "Done";
+            return 1;
         }
 
         public async Task SoftDelete(string id)

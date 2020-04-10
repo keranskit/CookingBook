@@ -23,7 +23,7 @@
 
         Task<int> CookRecipe(string recipeId, string userId);
 
-        Task<string> AddToFavorites(string recipeId, string userId);
+        Task<int> AddToFavorites(string recipeId, string userId);
 
         Task SoftDelete(string id);
 

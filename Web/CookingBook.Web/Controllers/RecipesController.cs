@@ -14,6 +14,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Primitives;
+    using ViewModels;
 
     public class RecipesController : Controller
     {
@@ -110,7 +111,8 @@
         {
             var userId = this.userManager.GetUserId(this.User);
             var response = await this.recipesService.AddToFavorites(model.Id, userId);
-            return this.Content(response.ToString());
+
+            return this.RedirectToAction(nameof(this.ById), new { id = model.Id });
         }
 
         [Authorize]
@@ -118,7 +120,8 @@
         {
             var userId = this.userManager.GetUserId(this.User);
             var response = await this.recipesService.CookRecipe(recipeId, userId);
-            return this.Content(response.ToString());
+
+            return this.RedirectToAction(nameof(this.ById), new { id = recipeId });
         }
     }
 }

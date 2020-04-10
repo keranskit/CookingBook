@@ -72,7 +72,7 @@
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
+            
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
