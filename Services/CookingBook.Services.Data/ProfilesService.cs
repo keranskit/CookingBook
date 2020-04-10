@@ -33,5 +33,20 @@
             // var user = await this.userRepository.All().FirstOrDefaultAsync(x => x.Id == userId);
             // var favoriteRecipes = user.FavoriteRecipes.
         }
+
+        public async Task RemoveFromFavorites(string userId, string recipeId)
+        {
+
+            var collection = this.userRepository.All().Where(x => x.Id == userId).SelectMany(x => x.FavoriteRecipes)
+                .ToList();
+            var itemToRemove = collection.Find(x => x.RecipeId == recipeId);
+            if (itemToRemove != null)
+            {
+                collection.Remove(itemToRemove);
+                this.userRepository.All().FirstOrDefaultAsync(x => x.Id == userId).Result.FavoriteRecipes = collection;
+            }
+
+            await this.userRepository.SaveChangesAsync();
+        }
     }
 }

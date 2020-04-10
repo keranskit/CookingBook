@@ -81,12 +81,24 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> UpdateEditedRecipe(RecipeEditViewModel model)
         {
             var userId = this.userManager.GetUserId(this.User);
 
             await this.recipesService.EditRecipe(model, userId);
+
+            return this.RedirectToAction(nameof(this.Index));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromFavorites(string recipeId)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            await this.profileService.RemoveFromFavorites(userId, recipeId);
 
             return this.RedirectToAction(nameof(this.Index));
         }

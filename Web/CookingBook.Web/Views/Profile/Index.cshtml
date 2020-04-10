@@ -28,8 +28,8 @@ My favorites:
 {
     <div class="btn-toolbar">
         <p>@rec.RecipeTitle</p>
-        <form asp-controller="Profile" asp-action="EditMyFavorites" method="post">
-            <input type="hidden" name="Id" value="@this.Model.Id"/>
+        <form asp-controller="Profile" asp-action="RemoveFromFavorites" method="post">
+            <input type="hidden" name="recipeId" value="@rec.RecipeId"/>
             <input type="submit" class="btn btn-outline-primary" value="Remove from favorites"/>
         </form>
     </div>
