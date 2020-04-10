@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
+
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
-    using Mapping;
+    using CookingBook.Services.Mapping;
 
     public class CategoriesService : ICategoriesService
     {
@@ -26,10 +26,10 @@
             return this.categoryRepository.All().Where(x => x.IsDeleted == false).To<T>().ToList();
         }
 
-        public T GetById<T>(int Id)
+        public T GetById<T>(int id)
         {
             var category = this.categoryRepository.All()
-                .Where(x => x.Id == Id)
+                .Where(x => x.Id == id)
                 .Where(x => x.IsDeleted == false)
                 .To<T>().FirstOrDefault();
             return category;

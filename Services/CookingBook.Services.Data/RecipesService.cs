@@ -5,15 +5,14 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
-    using CookingBook.Data.Common.Models;
+
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
+    using CookingBook.Web.ViewModels.Profile;
     using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Migrations.Operations;
     using Microsoft.Extensions.Primitives;
-    using Web.ViewModels.Profile;
 
     public class RecipesService : IRecipesService
     {

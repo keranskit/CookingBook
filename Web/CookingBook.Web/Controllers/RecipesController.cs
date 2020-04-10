@@ -1,20 +1,14 @@
 ﻿namespace CookingBook.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using CookingBook.Data;
     using CookingBook.Data.Models;
     using CookingBook.Services.Data;
     using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Primitives;
-    using ViewModels;
 
     public class RecipesController : Controller
     {
@@ -105,6 +99,7 @@
             return this.RedirectToAction(nameof(this.ById), new { id = model.RecipeId });
         }
 
+        // Todo: popup when recipe is successfully added to favorites!
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddToFavorites(RecipeByIdViewModel model)
@@ -115,6 +110,7 @@
             return this.RedirectToAction(nameof(this.ById), new { id = model.Id });
         }
 
+        // Todo: popup when recipe is successfully cooked!
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CookRecipe(string recipeId)

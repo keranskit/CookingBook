@@ -1,7 +1,7 @@
 ﻿namespace CookingBook.Web.ViewModels.Profile
 {
     using CookingBook.Data.Models;
-    using Services.Mapping;
+    using CookingBook.Services.Mapping;
 
     public class RecipeByUserFavoriteViewModel : IMapFrom<UserFavoriteRecipe>
     {

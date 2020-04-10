@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using CookingBook.Data.Models;
+
+    using CookingBook.Web.ViewModels.Profile;
     using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.Extensions.Primitives;
-    using Web.ViewModels.Profile;
 
     public interface IRecipesService
     {

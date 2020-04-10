@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CookingBook.Web.ViewModels.Recipes
+﻿namespace CookingBook.Web.ViewModels.Recipes
 {
     using System.ComponentModel.DataAnnotations;
-    using Data.Models;
-    using Services.Mapping;
+
+    using CookingBook.Data.Models;
+    using CookingBook.Services.Mapping;
 
     public class RecipeByIdProductsViewModel : IMapFrom<Product>
     {
