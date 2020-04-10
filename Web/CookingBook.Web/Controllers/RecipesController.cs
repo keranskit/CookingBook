@@ -116,6 +116,7 @@
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> CookRecipe(string recipeId)
         {
             var userId = this.userManager.GetUserId(this.User);
