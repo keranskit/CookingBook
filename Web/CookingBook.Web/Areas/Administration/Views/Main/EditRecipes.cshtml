@@ -1,7 +1,46 @@
-﻿@model CookingBook.Web.ViewModels.Administration.Main.EditCategoryViewModel
+﻿@model CookingBook.Web.ViewModels.Administration.Main.MainAdminRecipesViewModel
 @{
     ViewData["Title"] = "EditRecipes";
 }
 
 <h1>EditRecipes</h1>
 
+<div class="container">
+    <h1 style="margin: 2%; text-align: center;">Edit Categories</h1>
+    <div style="margin: 2%; text-align: center;">
+        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Main" asp-action="Index"><strong>Back</strong></a>
+    </div>
+    <div style="padding: 5%;">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Recipe name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var recipe in Model.Recipes)
+            {
+                <tr>
+                    <th scope="row">@recipe.Title</th>
+                    <td>@recipe.CategoryId</td>
+                    <td>
+                        <form asp-controller="AdminRecipes" asp-action="EditRecipe" method="post">
+                            <input type="hidden" name="id" value="@recipe.Id" />
+                            <input type="submit" class="btn btn-outline-warning" value="Edit" />
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-controller="AdminRecipes" asp-action="DeleteRecipe" method="post">
+                            <input type="hidden" name="id" value="@recipe.Id" />
+                            <input type="submit" class="btn btn-outline-danger" value="Delete" />
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -40,18 +40,17 @@
             return this.View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult EditCategories(int id)
+        public IActionResult EditRecipes()
         {
-            return this.Content("ok");
+            var recipes = this.recipeRepository.All().To<AdminRecipeViewModel>().ToList();
+            var viewModel = new MainAdminRecipesViewModel
+            {
+                Recipes = recipes,
+            };
+            return this.View(viewModel);
         }
 
-        public IActionResult EditRecipes(IEnumerable<Recipe> collection)
-        {
-            return this.View();
-        }
-
-        public IActionResult EditUsers(IEnumerable<ApplicationUser> collection)
+        public IActionResult EditUsers()
         {
             return this.View();
         }

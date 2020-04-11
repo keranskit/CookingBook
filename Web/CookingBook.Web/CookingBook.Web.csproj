@@ -47,4 +47,8 @@
     <ProjectReference Include="..\CookingBook.Web.Infrastructure\CookingBook.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\CookingBook.Web.ViewModels\CookingBook.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Views\AdminUsers\" />
+  </ItemGroup>
 </Project>

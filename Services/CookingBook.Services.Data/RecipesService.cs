@@ -9,6 +9,7 @@
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
+    using CookingBook.Web.ViewModels.Administration.Main;
     using CookingBook.Web.ViewModels.Profile;
     using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.EntityFrameworkCore;
@@ -209,6 +210,22 @@
                 recipe.ModifiedOn = DateTime.UtcNow;
                 this.recipeRepository.Update(recipe);
             }
+
+            await this.recipeRepository.SaveChangesAsync();
+        }
+
+        public async Task EditByAdmin(AdminRecipeViewModel model)
+        {
+            var recipe = await this.recipeRepository.All().FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            recipe.CategoryId = model.CategoryId;
+            recipe.CookProcedure = model.SanitizedCookProcedure;
+            recipe.Title = model.Title;
+            recipe.CookTime = model.CookTime;
+            recipe.Photo = model.Photo;
+            recipe.Serving = model.Serving;
+            recipe.ModifiedOn = DateTime.UtcNow;
+            this.recipeRepository.Update(recipe);
 
             await this.recipeRepository.SaveChangesAsync();
         }

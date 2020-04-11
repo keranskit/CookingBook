@@ -1,6 +1,7 @@
 ﻿namespace CookingBook.Web.ViewModels.Administration.Main
 {
     using System.ComponentModel.DataAnnotations;
+
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;
 

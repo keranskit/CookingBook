@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using CookingBook.Web.ViewModels.Administration.Main;
     using CookingBook.Web.ViewModels.Profile;
     using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.Extensions.Primitives;
@@ -28,5 +28,7 @@
         Task SoftDelete(string id);
 
         Task EditRecipe(RecipeEditViewModel model, string userId);
+
+        Task EditByAdmin(AdminRecipeViewModel model);
     }
 }

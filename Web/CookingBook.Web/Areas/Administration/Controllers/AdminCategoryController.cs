@@ -1,9 +1,9 @@
 ﻿namespace CookingBook.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
+
     using CookingBook.Services.Data;
     using CookingBook.Web.ViewModels.Administration.Main;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class AdminCategoryController : AdministrationController
