@@ -6,7 +6,9 @@
 
     public interface IUsersService
     {
-        Task ToggleBan(string id, DateTime ban);
+        Task Ban(string id, DateTime ban);
+
+        Task Unban(string id);
 
         Task RemoveFromAdmins(string id);
 

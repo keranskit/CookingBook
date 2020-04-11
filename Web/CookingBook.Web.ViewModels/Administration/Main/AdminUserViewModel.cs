@@ -19,6 +19,8 @@
 
         public bool IsAdmin => this.Roles.Count > 0;
 
+        public bool IsBanned => this.LockoutEnabled && (this.LockoutEnd > DateTime.Now);
+
         public DateTimeOffset? LockoutEnd { get; set; }
 
         public bool LockoutEnabled { get; set; }

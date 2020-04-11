@@ -1,5 +1,6 @@
 ﻿namespace CookingBook.Web.Areas.Administration.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using CookingBook.Data.Models;
@@ -16,14 +17,18 @@
             this.usersService = usersService;
         }
 
-        public IActionResult BanUser(string id)
+        [HttpPost]
+        public async Task<IActionResult> BanUser(string id, DateTime ban)
         {
-            return this.Ok();
+            await this.usersService.Ban(id, ban);
+            return this.Redirect($"/Administration/Main/EditUsers");
         }
 
-        public IActionResult UnbanUser(string id)
+        [HttpPost]
+        public async Task<IActionResult> UnbanUser(string id)
         {
-            return this.Ok();
+            await this.usersService.Unban(id);
+            return this.Redirect($"/Administration/Main/EditUsers");
         }
 
         [HttpPost]

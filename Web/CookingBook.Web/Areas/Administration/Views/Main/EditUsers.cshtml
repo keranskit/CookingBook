@@ -1,8 +1,10 @@
 ﻿@using CookingBook.Common
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.CodeAnalysis.CSharp.Syntax
 @model CookingBook.Web.ViewModels.Administration.Main.MainAdminUsersViewModel;
 @{
     ViewData["Title"] = "EditUsers";
+    var dateTimeNow = DateTime.Now;
 }
 
 <div class="container">
@@ -17,7 +19,8 @@
                     <th scope="col">User name</th>
                     <th scope="col">User ID</th>
                     <th scope="col">Is he admin</th>
-                    <th>Edit</th>
+                    <th></th>
+                    <th>Ban info</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,11 +38,28 @@
                                     <input type="submit" class="btn btn-outline-warning" value="Make ordinary user" />
                                 </form>
                             }
-                            else
+                            @if (!user.IsAdmin)
                             {
                                 <form asp-controller="AdminUsers" asp-action="AddToAdmins" method="post">
                                     <input type="hidden" name="id" value="@user.Id" />
                                     <input type="submit" class="btn btn-outline-warning" value="Make Admin" />
+                                </form>
+                            }
+                        </td>
+                        <td>
+                            @if (user.IsBanned)
+                            {
+                                <form asp-controller="AdminUsers" asp-action="UnbanUser" mehtod="post">
+                                    <input type="hidden" name="id" value="@user.Id" />
+                                    <input type="submit" class="btn btn-outline-warning" value="Unban user" />
+                                </form>
+                            }
+                            @if (!user.IsBanned)
+                            {
+                                <form asp-controller="AdminUsers" asp-action="BanUser" mehtod="post">
+                                    <input type="datetime-local" name="ban" value="dateTimeNow"/>
+                                    <input type="hidden" name="id" value="@user.Id" />
+                                    <input type="submit" class="btn btn-outline-warning" value="Ban user" />
                                 </form>
                             }
                         </td>

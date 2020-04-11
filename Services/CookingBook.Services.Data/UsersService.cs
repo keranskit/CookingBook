@@ -26,19 +26,22 @@
             this.rolesRepository = rolesRepository;
         }
 
-        public async Task ToggleBan(string id, DateTime ban)
+        public async Task Ban(string id, DateTime ban)
         {
             var user = this.userRepository.All().FirstOrDefaultAsync(x => x.Id == id).Result;
-            if (user.LockoutEnabled && user.LockoutEnd > DateTime.Now)
-            {
-                user.LockoutEnabled = false;
-                user.LockoutEnd = DateTimeOffset.Now;
-            }
-            else
-            {
-                user.LockoutEnabled = true;
-                user.LockoutEnd = ban;
-            }
+            user.LockoutEnabled = true;
+            user.LockoutEnd = ban.ToUniversalTime();
+
+            this.userRepository.Update(user);
+
+            await this.userRepository.SaveChangesAsync();
+        }
+
+        public async Task Unban(string id)
+        {
+            var user = this.userRepository.All().FirstOrDefaultAsync(x => x.Id == id).Result;
+            user.LockoutEnabled = false;
+            user.LockoutEnd = null;
 
             this.userRepository.Update(user);
 
