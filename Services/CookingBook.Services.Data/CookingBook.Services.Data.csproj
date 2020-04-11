@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CookingBook.Common\CookingBook.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookingBook.Data.Common\CookingBook.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookingBook.Data.Models\CookingBook.Data.Models.csproj" />
     <ProjectReference Include="..\..\Web\CookingBook.Web.ViewModels\CookingBook.Web.ViewModels.csproj" />

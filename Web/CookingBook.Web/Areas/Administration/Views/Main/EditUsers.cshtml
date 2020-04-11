@@ -1,6 +1,51 @@
-﻿@{
+﻿@using CookingBook.Common
+@using Microsoft.AspNetCore.Identity
+@model CookingBook.Web.ViewModels.Administration.Main.MainAdminUsersViewModel;
+@{
     ViewData["Title"] = "EditUsers";
 }
 
-<h1>EditUsers</h1>
-
+<div class="container">
+    <h1 style="margin: 2%; text-align: center;">Edit Categories</h1>
+    <div style="margin: 2%; text-align: center;">
+        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Main" asp-action="Index"><strong>Back</strong></a>
+    </div>
+    <div style="padding: 5%;">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">User name</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Is he admin</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <th scope="row">@user.UserName</th>
+                        <td>@user.Id</td>
+                        <td>@user.IsAdmin</td>
+                        <td>
+                            @if (user.IsAdmin)
+                            {
+                                <form asp-controller="AdminUsers" asp-action="RemoveFromAdmins" method="post">
+                                    <input type="hidden" name="id" value="@user.Id" />
+                                    <input type="submit" class="btn btn-outline-warning" value="Make ordinary user" />
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-controller="AdminUsers" asp-action="AddToAdmins" method="post">
+                                    <input type="hidden" name="id" value="@user.Id" />
+                                    <input type="submit" class="btn btn-outline-warning" value="Make Admin" />
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

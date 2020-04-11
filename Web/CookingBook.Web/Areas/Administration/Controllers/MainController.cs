@@ -1,10 +1,10 @@
 ﻿namespace CookingBook.Web.Areas.Administration.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
+    using CookingBook.Services.Data;
     using CookingBook.Services.Mapping;
     using CookingBook.Web.ViewModels.Administration.Main;
     using Microsoft.AspNetCore.Mvc;
@@ -14,15 +14,18 @@
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Recipe> recipeRepository;
         private readonly IDeletableEntityRepository<Category> categoryRepository;
+        private readonly IUsersService usersService;
 
         public MainController(
             IDeletableEntityRepository<ApplicationUser> userRepository,
             IDeletableEntityRepository<Recipe> recipeRepository,
-            IDeletableEntityRepository<Category> categoryRepository)
+            IDeletableEntityRepository<Category> categoryRepository,
+            IUsersService usersService)
         {
             this.userRepository = userRepository;
             this.recipeRepository = recipeRepository;
             this.categoryRepository = categoryRepository;
+            this.usersService = usersService;
         }
 
         public IActionResult Index()
@@ -52,7 +55,12 @@
 
         public IActionResult EditUsers()
         {
-            return this.View();
+            var users = this.usersService.GetAll<AdminUserViewModel>();
+            var viewModel = new MainAdminUsersViewModel
+            {
+                Users = users,
+            };
+            return this.View(viewModel);
         }
     }
 }
