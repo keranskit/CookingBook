@@ -1,0 +1,13 @@
+﻿@model CookingBook.Web.ViewModels.Administration.Main.AdminUserViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@Model.Id
+<hr/>
+@Model.Roles.Count<hr />
+@Model.UserName<hr />
+@Model.LockoutEnabled<hr />
+@Model.LockoutEnd<hr />
