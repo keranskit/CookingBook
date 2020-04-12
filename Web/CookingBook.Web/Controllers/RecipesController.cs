@@ -91,7 +91,7 @@
             model.UserId = this.userManager.GetUserId(this.User);
             if (!this.ModelState.IsValid)
             {
-                return this.Content("Not this time, Johny!");
+                return this.View(model.RecipeId);
             }
 
             await this.recipesService.AddReview(model);

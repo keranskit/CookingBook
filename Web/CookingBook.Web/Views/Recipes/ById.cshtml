@@ -4,7 +4,7 @@
 }
 
 <div class="container-fluid">
-    <img src="@Model.Photo" alt="Picture of the recipe" />
+    <img src="@Model.Photo" alt="Picture of the recipe" style="max-width:600px;width:100%" />
     <h3>@Model.Title</h3>
 </div>
 <div class="btn-toolbar">
@@ -55,5 +55,5 @@
 <hr />
 @foreach (var review in Model.Reviews)
 {
-    <div>@review.Comment @review.SanitizedReview</div>
+    <div>@review.Comment @review.SanitizedReview @review.User.Name @review.CreatedOn.Date</div>
 }

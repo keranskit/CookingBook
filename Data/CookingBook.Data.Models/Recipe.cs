@@ -17,12 +17,15 @@
             this.Products = new HashSet<Product>();
         }
 
+        [Required]
+        [MaxLength(100)]
         public string Title { get; set; }
 
         public string Photo { get; set; }
         
         public virtual ICollection<Product> Products { get; set; }
 
+        [Required]
         public string CookProcedure { get; set; }
 
         public int CookTime { get; set; }

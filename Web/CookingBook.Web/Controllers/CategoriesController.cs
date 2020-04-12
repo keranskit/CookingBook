@@ -1,14 +1,10 @@
 ﻿namespace CookingBook.Web.Controllers
 {
-    using System.Linq;
-    using System.Threading.Tasks;
-
     using CookingBook.Data.Common.Repositories;
     using CookingBook.Data.Models;
     using CookingBook.Services.Data;
     using CookingBook.Web.ViewModels.Categories;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     public class CategoriesController : BaseController
     {

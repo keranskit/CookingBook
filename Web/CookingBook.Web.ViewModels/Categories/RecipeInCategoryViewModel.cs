@@ -1,6 +1,7 @@
 ﻿namespace CookingBook.Web.ViewModels.Categories
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using CookingBook.Data.Models;
     using CookingBook.Services.Mapping;

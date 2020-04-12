@@ -86,6 +86,10 @@
         public async Task<IActionResult> UpdateEditedRecipe(RecipeEditViewModel model)
         {
             var userId = this.userManager.GetUserId(this.User);
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model.Id);
+            }
 
             await this.recipesService.EditRecipe(model, userId);
 

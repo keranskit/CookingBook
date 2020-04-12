@@ -1,7 +1,7 @@
 ﻿namespace CookingBook.Web.ViewModels.Recipes
 {
     using System.Collections.Generic;
-    using System.Linq;
+    using System.ComponentModel.DataAnnotations;
 
     using AutoMapper;
     using CookingBook.Data.Models;
@@ -11,6 +11,7 @@
     {
         public string Id { get; set; }
         
+        [Required]
         public string Title { get; set; }
 
         public string Photo { get; set; }

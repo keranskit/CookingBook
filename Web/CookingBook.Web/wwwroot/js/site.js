@@ -4,20 +4,20 @@
 // Write your JavaScript code.
 
 function ShowProducts() {
-        var productCount = $("#ProductsCount").val();
-        var html = "";
-        var i;
-        for (i = 0; i < productCount; i++) {
-            html +=
-                '<div>' +
-                '<label>Product</label>' +
-                '<input name="Name" class="form-control type="text"/>' +
-                '<label>Quantity</label>' +
-                '<input name="Quantity" class="form-control" type="number"/>' +
-                '</div>';
+    var productCount = $("#ProductsCount").val();
+    var html = "";
+    var i;
+    for (i = 0; i < productCount; i++) {
+        html +=
+            '<div>' +
+            '<label>Product  </label>' +
+            '<input name="Name" type="text"/>' +
+            '<label>Quantity  </label>' +
+            '<input name="Quantity" type="number"/>' +
+            '</div>';
 
-        }
-        console.log(html);
-        document.getElementById("buttonForProduct").innerHTML = html;
-        return false;
-        }
+    }
+    console.log(html);
+    document.getElementById("buttonForProduct").innerHTML = html;
+    return false;
+}

@@ -1,6 +1,7 @@
 ﻿namespace CookingBook.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     using CookingBook.Data.Common.Models;
 
@@ -11,6 +12,7 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
+        [Required]
         public string Comment { get; set; }
 
         public string RecipeId { get; set; }
