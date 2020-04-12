@@ -1,4 +1,8 @@
-﻿@model CookingBook.Web.ViewModels.Recipes.RecipeByIdViewModel
+﻿@using CookingBook.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model CookingBook.Web.ViewModels.Recipes.RecipeByIdViewModel
+
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "ById";
 }
@@ -18,7 +22,7 @@
     </form>
 </div>
 <div>
-    @Model.CookTime minutes, @Model.Serving servings, Favorited by @Model.FavoriteBy users, 
+    @Model.CookTime minutes, @Model.Serving servings, Favorited by @Model.FavoriteBy users,
 </div>
 <hr />
 <div>
@@ -50,8 +54,11 @@
 <div>
     <h5>@Model.UserName is the author of this recipe</h5>
 </div>
-<hr />
-<a class="btn btn-primary" href="/Recipes/AddReview/@Model.Id" role="button">Add new Review</a>
+@if (this.SignInManager.IsSignedIn(this.User))
+{
+    <hr/>
+    <a class="btn btn-primary" href="/Recipes/AddReview/@Model.Id" role="button">Add new Review</a>
+}
 <hr />
 @foreach (var review in Model.Reviews)
 {
