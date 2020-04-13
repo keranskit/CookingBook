@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "AddReview";
     var recipeId = Model.RecipeId.ToString();
+    var score = new SelectList(new [] {1, 2, 3, 4, 5});
 }
 
 <h1>AddReview</h1>
@@ -11,6 +12,9 @@
     <label asp-for="Comment"></label>
     <input asp-for="Comment" class="form-control" />
     <span asp-validation-for="Comment" class="text-danger"></span>
+    <label asp-for="Score"></label>
+    <select asp-for="Score" asp-items="score"></select>
+    <span asp-validation-for="Score" class="text-danger"></span>
     <hr />
     <input type="submit" class="btn btn-primary" />
 </form>

@@ -5,62 +5,95 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "ById";
+
+    var score = new SelectList(new[] { "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", });
 }
 
-<div class="container-fluid">
-    <img src="@Model.Photo" alt="Picture of the recipe" style="max-width:600px;width:100%" />
-    <h3>@Model.Title</h3>
-</div>
-<div class="btn-toolbar">
-    <form asp-controller="Recipes" asp-action="AddToFavorites" method="post">
-        <input type="hidden" name="Id" value="@this.Model.Id" />
-        <input type="submit" class="btn btn-outline-primary" value="Add To Favorites" />
-    </form>
-    <form asp-controller="Recipes" asp-action="CookRecipe" method="post">
-        <input type="hidden" name="recipeId" value="@this.Model.Id" />
-        <input type="submit" class="btn btn-outline-primary" value="Cook this recipe!" />
-    </form>
-</div>
-<div>
-    @Model.CookTime minutes, @Model.Serving servings, Favorited by @Model.FavoriteBy users,
-</div>
-<hr />
-<div>
-    <ul>
-        Ingredients
-        @foreach (var product in Model.Products)
-        {
-            <li>@product.Quantity @product.Name</li>
-        }
-    </ul>
-</div>
-<hr />
-<div>
-    <ul>
-        <li>@Model.NutritionValue.Calories Calories</li>
-        <li>@Model.NutritionValue.Carbohydrates Carbohydrates</li>
-        <li>@Model.NutritionValue.Fats Fats</li>
-        <li>@Model.NutritionValue.Fiber Fiber</li>
-        <li>@Model.NutritionValue.Protein Protein</li>
-        <li>@Model.NutritionValue.Salt Salt</li>
-        <li>@Model.NutritionValue.Sugar Sugar</li>
-    </ul>
-</div>
-<hr />
-<div>
-    @Model.CookProcedure
-</div>
-<hr />
-<div>
-    <h5>@Model.UserName is the author of this recipe</h5>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <img src="@Model.Photo" alt="Picture of the recipe" style="max-width:600px; width: 100%; " />
+            <div class="btn-toolbar mt-4 mb-4 d-flex justify-content-between">
+                <div class="btn-group ml-4" role="group">
+                    <form asp-controller="Recipes" asp-action="AddToFavorites" method="post">
+                        <input type="hidden" name="Id" value="@this.Model.Id" />
+                        <input type="submit" class="btn btn-outline-primary" value="Add To Favorites" />
+                    </form>
+                </div>
+                <div class="btn-group mr-4" role="group">
+                    <form asp-controller="Recipes" asp-action="CookRecipe" method="post">
+                        <input type="hidden" name="recipeId" value="@this.Model.Id" />
+                        <input type="submit" class="btn btn-outline-primary" value="Cook this recipe!" />
+                    </form>
+                </div>
+            </div>
+            <div>
+                <h5>Ingredients</h5>
+                <ul>
+                    @foreach (var product in Model.Products)
+                    {
+                        <li>@product.Quantity @product.Name</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <hr />
+        <div class="col-md">
+            <div class="col-md">
+                <h2>@Model.Title</h2>
+                <hr />
+            </div>
+            <div>
+                Favorited by @Model.FavoriteBy users; Cooked by @Model.CookedBy users
+            </div>
+            <div>
+                Cook it for @Model.CookTime minutes, @Model.Serving servings
+            </div>
+            <hr />
+            <div>
+                @Model.CookProcedure
+            </div>
+            <hr />
+            <div class="align-content-center">
+                <h5>Nutrition facts:</h5>
+                <ul>
+                    <li>@Model.NutritionValue.Calories Calories</li>
+                    <li>@Model.NutritionValue.Carbohydrates Carbohydrates</li>
+                    <li>@Model.NutritionValue.Fats Fats</li>
+                    <li>@Model.NutritionValue.Fiber Fiber</li>
+                    <li>@Model.NutritionValue.Protein Protein</li>
+                    <li>@Model.NutritionValue.Salt Salt</li>
+                    <li>@Model.NutritionValue.Sugar Sugar</li>
+                </ul>
+            </div>
+            <hr />
+            <div class="align-content-center">
+                <h5>Author: @Model.UserName</h5>
+            </div>
+        </div>
+    </div>
 </div>
 @if (this.SignInManager.IsSignedIn(this.User))
 {
-    <hr/>
-    <a class="btn btn-primary" href="/Recipes/AddReview/@Model.Id" role="button">Add new Review</a>
+    <hr />
+    <a class="btn btn-outline-primary" href="/Recipes/AddReview/@Model.Id" role="button">Add new Review</a>
 }
 <hr />
-@foreach (var review in Model.Reviews)
-{
-    <div>@review.Comment @review.SanitizedReview @review.User.Name @review.CreatedOn.Date</div>
-}
+<ul class="list-unstyled">
+    @foreach (var review in Model.Reviews)
+    {
+        <li class="media mt-2 mb-2">
+            <img class="mr-3" src="/stars/@review.Score@(".jpg")" alt="Generic placeholder image" style="max-width: 64px">
+            <div class="media-body">
+                <h4 class="mt-0 mb-1">@review.User.Name</h4>
+                <div class="text-muted small">
+                    @review.CreatedOn.ToString("F")
+                </div>
+                <div>
+                    @review.Comment
+                </div>
+            </div>
+        </li>
+    }
+</ul>

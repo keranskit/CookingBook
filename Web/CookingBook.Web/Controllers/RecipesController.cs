@@ -99,7 +99,6 @@
             return this.RedirectToAction(nameof(this.ById), new { id = model.RecipeId });
         }
 
-        // Todo: popup when recipe is successfully added to favorites!
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddToFavorites(RecipeByIdViewModel model)
@@ -110,7 +109,6 @@
             return this.RedirectToAction(nameof(this.ById), new { id = model.Id });
         }
 
-        // Todo: popup when recipe is successfully cooked!
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CookRecipe(string recipeId)

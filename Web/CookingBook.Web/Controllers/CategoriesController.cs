@@ -9,16 +9,13 @@
     public class CategoriesController : BaseController
     {
         private readonly ICategoriesService categoriesService;
-        private readonly IDeletableEntityRepository<Category> categoryRepository;
         private readonly IRecipesService recipesService;
 
         public CategoriesController(
             ICategoriesService categoriesService, 
-            IDeletableEntityRepository<Category> categoryRepository,
             IRecipesService recipesService)
         {
             this.categoriesService = categoriesService;
-            this.categoryRepository = categoryRepository;
             this.recipesService = recipesService;
         }
 

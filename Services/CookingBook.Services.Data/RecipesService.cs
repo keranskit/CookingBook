@@ -118,6 +118,7 @@
             this.recipeRepository.All().FirstOrDefault(x => x.Id == model.RecipeId).Reviews.Add(new Review
             {
                 Comment = model.SanitizedReview,
+                Score = model.Score,
                 RecipeId = model.RecipeId,
                 UserId = model.UserId,
             });

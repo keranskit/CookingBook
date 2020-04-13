@@ -32,13 +32,16 @@
 
         public int FavoriteBy { get; set; }
 
+        public int CookedBy { get; set; }
+
         // public virtual ICollection<UserCookedRecipe> CookedBy { get; set; }
         public ICollection<ReviewForRecipeViewModel> Reviews { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Recipe, RecipeByIdViewModel>()
-                .ForMember(x => x.FavoriteBy, s => s.MapFrom(x => x.FavoriteBy.Count));
+                .ForMember(x => x.FavoriteBy, s => s.MapFrom(x => x.FavoriteBy.Count))
+                .ForMember(x => x.CookedBy, s => s.MapFrom(x => x.CookedBy.Count));
         }
     }
 }

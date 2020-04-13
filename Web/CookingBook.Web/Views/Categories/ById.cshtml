@@ -8,7 +8,7 @@
     <div class="row mt-5">
         @foreach (var recipe in this.Model.Recipes)
         {
-            <div class="card-deck">
+            <div class="card-deck" style="margin: 1rem">
                 <a href="/Recipes/ById/@recipe.Id">
                     <div class="card" style="width: 18rem;">
                         <img src="@recipe.Photo" class="card-img-top" alt="Image of the recipe">
@@ -17,7 +17,7 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Servings: @recipe.Serving</li>
-                            <li class="list-group-item">Cook time: @recipe.CookTime</li>
+                            <li class="list-group-item">Cook time: @recipe.CookTime min</li>
                         </ul>
                         <div class="card-body">
                             <a href="#" class="card-link">Add to favorites</a>

@@ -15,6 +15,10 @@
         [Required]
         public string Comment { get; set; }
 
+        [Required] 
+        [Range(1, 5)]
+        public int Score { get; set; }
+
         public string RecipeId { get; set; }
 
         public virtual Recipe Recipe { get; set; }
