@@ -44,6 +44,11 @@
             return this.recipeRepository.All().Where(x => x.IsDeleted == false).To<T>().ToList();
         }
 
+        public IEnumerable<T> GetNewestFiveRecipes<T>()
+        {
+            return this.recipeRepository.All().OrderByDescending(x => x.CreatedOn).To<T>().Take(6).ToList();
+        }
+
         public IEnumerable<T> GetByCategoryId<T>(int categoryId)
         {
             return this.recipeRepository.All().Where(x => x.CategoryId == categoryId).Where(x => x.IsDeleted == false)

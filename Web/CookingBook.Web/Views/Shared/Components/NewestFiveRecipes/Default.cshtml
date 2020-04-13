@@ -1,0 +1,20 @@
+﻿@model CookingBook.Web.ViewModels.Recipes.NewestFiveRecipesViewModel
+@{
+    ViewData["Title"] = "Default";
+}
+
+<h1 align="center">Our Newest Recipes</h1>
+<div class="card-group">
+    @foreach (var recipe in Model.Recipes)
+    {
+
+        <div class="card">
+            <img class="card-img-top" src="@recipe.Photo" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@recipe.Title</h5>
+                <a href="/Recipes/ById/@recipe.Id" class="btn btn-outline-primary">View Recipe</a>
+            </div>
+        </div>
+
+    }
+</div>

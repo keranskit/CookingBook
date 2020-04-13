@@ -31,5 +31,7 @@
         Task EditRecipe(RecipeEditViewModel model, string userId);
 
         Task EditByAdmin(AdminRecipeViewModel model);
+
+        IEnumerable<T> GetNewestFiveRecipes<T>();
     }
 }
