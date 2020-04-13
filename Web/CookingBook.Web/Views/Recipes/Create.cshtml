@@ -4,7 +4,7 @@
     var categories = Model.Categories.Select(x => new SelectListItem(x.Title, x.Id.ToString()));
 }
 
-<h1>Create</h1>
+<h1>Create new recipe</h1>
 
 <form asp-controller="Recipes" asp-action="Create" method="post">
     <div>
