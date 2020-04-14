@@ -8,19 +8,18 @@
 }
 
 <div class="container">
-    <h1 style="margin: 2%; text-align: center;">Edit Categories</h1>
-    <div style="margin: 2%; text-align: center;">
-        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Main" asp-action="Index"><strong>Back</strong></a>
+    <h4 style="margin: 1%; text-align: center;">Edit Users</h4>
+    <div style="margin: 1%; text-align: center;">
+        <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="Main" asp-action="Index"><strong>Back</strong></a>
     </div>
     <div style="padding: 5%;">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">User name</th>
-                    <th scope="col">User ID</th>
-                    <th scope="col">Is he admin</th>
-                    <th></th>
-                    <th>Ban info</th>
+                    <th scope="col">User type</th>
+                    <th>Change type</th>
+                    <th>Ban</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,8 +27,14 @@
                 {
                     <tr>
                         <th scope="row">@user.UserName</th>
-                        <td>@user.Id</td>
-                        <td>@user.IsAdmin</td>
+                        @if (user.IsAdmin)
+                        {
+                            <td>Admin</td>
+                        }
+                        @if (!user.IsAdmin)
+                        {
+                            <td>User</td>
+                        }
                         <td>
                             @if (user.IsAdmin)
                             {
@@ -57,7 +62,7 @@
                             @if (!user.IsBanned)
                             {
                                 <form asp-controller="AdminUsers" asp-action="BanUser" mehtod="post">
-                                    <input type="datetime-local" name="ban" value="dateTimeNow"/>
+                                    <input type="datetime-local" name="ban" value="dateTimeNow" />
                                     <input type="hidden" name="id" value="@user.Id" />
                                     <input type="submit" class="btn btn-outline-warning" value="Ban user" />
                                 </form>

@@ -4,7 +4,7 @@
     var categories = Model.Categories.Select(x => new SelectListItem(x.Title, x.Id.ToString()));
 }
 
-<h1>Create new recipe</h1>
+<h1 style="margin: 5%" align="center">Create new recipe</h1>
 
 <form asp-controller="Recipes" asp-action="Create" method="post">
     <div class="container">
@@ -92,6 +92,8 @@
     </div>
     <div id="buttonForProduct">
     </div>
-<hr />
-<input type="submit" class="btn btn-primary" />
+    <hr />
+    <div style="text-align:center;">
+        <input type="submit" class="btn btn-primary" />
+    </div>
 </form>

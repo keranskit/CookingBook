@@ -1,12 +1,16 @@
 ﻿@model CookingBook.Web.ViewModels.Administration.Main.MainAdminRecipesViewModel
+@using CookingBook.Services.Data
+@using CookingBook.Web.ViewModels.Recipes
+@inject ICategoriesService CategoriesService;
 @{
     ViewData["Title"] = "EditRecipes";
+    var categories = this.CategoriesService.GetAll<CategoryDropdownViewModel>();
 }
 
 <div class="container">
-    <h1 style="margin: 2%; text-align: center;">Edit Categories</h1>
-    <div style="margin: 2%; text-align: center;">
-        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Main" asp-action="Index"><strong>Back</strong></a>
+    <h4 style="margin: 1%; text-align: center;">Edit Recipes</h4>
+    <div style="margin: 1%; text-align: center;">
+        <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="Main" asp-action="Index"><strong>Back</strong></a>
     </div>
     <div style="padding: 5%;">
         <table class="table">
@@ -23,7 +27,7 @@
             {
                 <tr>
                     <th scope="row">@recipe.Title</th>
-                    <td>@recipe.CategoryId</td>
+                    <td>@categories.FirstOrDefault(x=>x.Id==recipe.CategoryId).Title</td>
                     <td>
                         <form asp-controller="AdminRecipes" asp-action="EditRecipe" method="post">
                             <input type="hidden" name="id" value="@recipe.Id" />

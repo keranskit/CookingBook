@@ -3,15 +3,20 @@
     ViewData["Title"] = "DeleteRecipe";
 }
 
-<h1>DeleteRecipe</h1>
-
-<h2>Are you sure you want to mark this recipe as deleted?</h2>
-<div class="align-content-center">
-    <form asp-controller="AdminRecipes" asp-action="DeleteById" method="post">
-        <input type="hidden" name="Id" value="@Model.Id" />
-        <input type="submit" class="btn btn-danger" value="Delete it, NOW!" />
-    </form>
-    <form asp-controller="Main" asp-action="Index" method="get">
-        <input type="submit" class="btn btn-success" value="No, wait, don't do it!" />
-    </form>
+<h2 align="center">Are you sure you want to mark this category as deleted?</h2>
+<div class="btn-toolbar mt-4 mb-4 d-flex justify-content-between">
+    <div class="btn-group" role="group"></div>
+    <div class="btn-group" role="group">
+        <form asp-controller="Main" asp-action="Index" method="get">
+            <input type="submit" class="btn btn-success" value="No, wait, don't do it!" />
+        </form>
+    </div>
+    <div class="btn-group" role="group">
+        <form asp-controller="AdminRecipes" asp-action="DeleteById" method="post">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="submit" class="btn btn-danger" value="Delete it!" />
+        </form>
+    </div>
+    <div class="btn-group" role="group"></div>
 </div>
+<vc:newest-five-recipes></vc:newest-five-recipes>

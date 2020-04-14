@@ -4,34 +4,70 @@
     this.ViewData["Title"] = "Profile";
 }
 
-<div class="text-center">
-    <h1 class="display-4">@GlobalConstants.SystemName!</h1>
+<div class="container">
+    <h4 style="margin: 1%; text-align: center;">Edit Recipes</h4>
+    <div style="margin: 1%; text-align: center;">
+        <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="Main" asp-action="Index"><strong>Back</strong></a>
+    </div>
+    <div style="padding: 2%;">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Recipe name</th>
+                    <th scope="col">Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var recipe in Model.Recipes)
+                {
+                    <tr>
+                        <th scope="row">@recipe.Title</th>
+                        <td>
+                            <form asp-controller="Profile" asp-action="EditRecipe" method="post">
+                                <input type="hidden" name="Id" value="@recipe.Id" />
+                                <input type="submit" class="btn btn-outline-warning" value="Edit Recipe" />
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-controller="Profile" asp-action="ConfirmDeleteRecipe" method="post">
+                                <input type="hidden" name="Id" value="@recipe.Id" />
+                                <input type="submit" class="btn btn-outline-danger" value="Delete Recipe" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-My recipes:
-@foreach (var recipe in Model.Recipes)
-{
-    <div class="btn-toolbar">
-        <p>@recipe.Title </p>
-        <form asp-controller="Profile" asp-action="ConfirmDeleteRecipe" method="post">
-            <input type="hidden" name="Id" value="@recipe.Id"/>
-            <input type="submit" class="btn btn-outline-danger" value="DeleteRecipe"/>
-        </form>
-        <form asp-controller="Profile" asp-action="EditRecipe" method="post">
-            <input type="hidden" name="Id" value="@recipe.Id"/>
-            <input type="submit" class="btn btn-outline-warning" value="EditRecipe"/>
-        </form>
-    </div>
-}
+<div class="container">
+    <h4 style="margin: 1%; text-align: center;">Edit Favorites</h4>
+    <div style="padding: 2%;">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Recipe Name</th>
+                    <th>Remove from favorites</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var recipe in Model.FavoriteRecipes)
+                {
+                    <tr>
+                        <th scope="row">@recipe.RecipeTitle</th>
 
-My favorites:
-@foreach (var rec in Model.FavoriteRecipes)
-{
-    <div class="btn-toolbar">
-        <p>@rec.RecipeTitle</p>
-        <form asp-controller="Profile" asp-action="RemoveFromFavorites" method="post">
-            <input type="hidden" name="recipeId" value="@rec.RecipeId"/>
-            <input type="submit" class="btn btn-outline-primary" value="Remove from favorites"/>
-        </form>
+                        <td>
+                            <form asp-controller="Profile" asp-action="RemoveFromFavorites" method="post">
+                                <input type="hidden" name="recipeId" value="@recipe.RecipeId" />
+                                <input type="submit" class="btn btn-outline-danger" value="Remove from favorites" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-}
+</div>
+
 <vc:newest-five-recipes></vc:newest-five-recipes>

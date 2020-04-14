@@ -4,7 +4,7 @@
     var categories = Model.Categories.Select(x => new SelectListItem(x.Title, x.Id.ToString()));
 }
 
-<h1>Edit Recipes</h1>
+<h1>Edit @this.Model.SanitizedTitle</h1>
 
 
 <form asp-controller="Profile" asp-action="UpdateEditedRecipe" method="post">

@@ -5,7 +5,7 @@
     var score = new SelectList(new [] {1, 2, 3, 4, 5});
 }
 
-<h1>AddReview</h1>
+<h1>Add new review</h1>
 
 <form asp-controller="Recipes" asp-action="AddReview" method="post">
     <input type="hidden" name="recipeId" value="@this.Model.RecipeId" />
@@ -20,7 +20,9 @@
         <select asp-for="Score" asp-items="score" class="form-control"></select>
         <span asp-validation-for="Score" class="text-danger"></span>
     </div>
-        <hr />
-        <input type="submit" class="btn btn-primary" />
+    <hr />
+    <div style="text-align:center;">
+    <input type="submit" class="btn btn-primary btn-lg" />
+    </div>
 </form>
 <vc:newest-five-recipes></vc:newest-five-recipes>

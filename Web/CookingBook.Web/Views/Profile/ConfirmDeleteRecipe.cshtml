@@ -3,16 +3,20 @@
     ViewData["Title"] = "ConfirmDeleteRecipe";
 }
 
-<h2>Are you sure you want to permanently delete this recipe?</h2>
-
-<div class="align-content-center">
-    <form asp-controller="Profile" asp-action="DeleteRecipe" method="post">
-        <input type="hidden" name="Id" value="@Model.Id" />
-        <input type="submit" class="btn btn-danger" value="Delete it, NOW!" />
-    </form>
-    <form asp-controller="Profile" asp-action="Index" method="get">
-        <input type="submit" class="btn btn-success" value="No, wait, don't do it!" />
-    </form>
+<h2 align="center" style="margin-top: 4%">Are you sure you want to permanently delete this recipe?</h2>
+<div class="btn-toolbar mt-4 mb-4 d-flex justify-content-between">
+    <div class="btn-group" role="group"></div>
+    <div class="btn-group" role="group">
+        <form asp-controller="Profile" asp-action="Index" method="get">
+            <input type="submit" class="btn btn-success" value="No, wait, don't do it!" />
+        </form>
+    </div>
+    <div class="btn-group" role="group">
+        <form asp-controller="Profile" asp-action="DeleteRecipe" method="post">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="submit" class="btn btn-danger" value="Delete it!" />
+        </form>
+    </div>
+    <div class="btn-group" role="group"></div>
 </div>
-
 <vc:newest-five-recipes></vc:newest-five-recipes>
