@@ -44,7 +44,6 @@
             return this.View(viewModel);
         }
 
-        // Todo: edit view view
         [Authorize]
         public IActionResult ConfirmDeleteRecipe(string id)
         {
