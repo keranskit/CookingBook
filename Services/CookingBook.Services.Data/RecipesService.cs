@@ -163,7 +163,6 @@
             return recipe.CookedBy.Count();
         }
 
-        // Todo: validate it ain't already there
         public async Task<int> AddToFavorites(string recipeId, string userId)
         {
             var recipe = this.recipeRepository.All().Include(cooked => cooked.FavoriteBy).FirstOrDefault(x => x.Id == recipeId);

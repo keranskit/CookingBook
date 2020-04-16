@@ -1,9 +1,6 @@
 ﻿namespace CookingBook.Data.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     using CookingBook.Data.Common.Models;
 
@@ -11,5 +8,7 @@
     {
         [Required]
         public string Title { get; set; }
+
+        public string Image { get; set; }
     }
 }

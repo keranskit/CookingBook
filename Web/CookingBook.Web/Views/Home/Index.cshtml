@@ -5,15 +5,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">@GlobalConstants.SystemName!</h1>
+    <h4 class="display-4">Welcome to @GlobalConstants.SystemName</h4>
+    <h4>Choose a category:</h4>
 </div>
 <hr />
 @foreach (var category in Model.Categories)
 {
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link active" href="/Categories/ById/@category.Id">@category.Title</a>
-        </li>
-    </ul>
+    <div align="center" style="margin-top: 5px">
+        <a href="/Categories/ById/@category.Id">
+            <img src="@category.Image" class="img-fluid" style="height: 150px; width: 100%" />
+        </a>
+    </div>
 }
 <vc:newest-five-recipes></vc:newest-five-recipes>

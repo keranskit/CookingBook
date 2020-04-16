@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CookingBook.Data.Migrations
+﻿namespace CookingBook.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +19,7 @@ namespace CookingBook.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -49,7 +50,7 @@ namespace CookingBook.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    ProfilePhoto = table.Column<string>(nullable: true)
+                    ProfilePhoto = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -66,7 +67,7 @@ namespace CookingBook.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -84,7 +85,7 @@ namespace CookingBook.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -99,7 +100,7 @@ namespace CookingBook.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -120,7 +121,7 @@ namespace CookingBook.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -140,7 +141,7 @@ namespace CookingBook.Data.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -158,7 +159,7 @@ namespace CookingBook.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -184,7 +185,7 @@ namespace CookingBook.Data.Migrations
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -213,7 +214,7 @@ namespace CookingBook.Data.Migrations
                     Serving = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
                     NutritionValueId = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -248,7 +249,7 @@ namespace CookingBook.Data.Migrations
                     Protein = table.Column<int>(nullable: false),
                     Fiber = table.Column<int>(nullable: false),
                     Salt = table.Column<int>(nullable: false),
-                    RecipeId = table.Column<string>(nullable: false)
+                    RecipeId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -272,7 +273,7 @@ namespace CookingBook.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Quantity = table.Column<decimal>(nullable: false),
-                    RecipeId = table.Column<string>(nullable: false)
+                    RecipeId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -296,7 +297,7 @@ namespace CookingBook.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Comment = table.Column<string>(nullable: true),
                     RecipeId = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -320,7 +321,7 @@ namespace CookingBook.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RecipeId = table.Column<string>(nullable: false)
+                    RecipeId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -344,7 +345,7 @@ namespace CookingBook.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RecipeId = table.Column<string>(nullable: false)
+                    RecipeId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
