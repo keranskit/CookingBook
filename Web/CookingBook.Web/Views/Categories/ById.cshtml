@@ -3,7 +3,12 @@
 @{
     this.ViewData["Title"] = @Model.Title + " Recipes";
 }
-<h1>@this.ViewData["Title"]</h1>
+<h3 align="center">@this.ViewData["Title"]</h3>
+<hr/>
+@if (!this.Model.Recipes.Any())
+{
+    <h6 align="center">Sorry, there are still no recipes in this category.</h6>
+}
 <div class="container">
     <div class="row mt-5">
         @foreach (var recipe in this.Model.Recipes)

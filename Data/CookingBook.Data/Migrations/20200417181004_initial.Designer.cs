@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookingBook.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200406110346_Initial")]
-    partial class Initial
+    [Migration("20200417181004_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,6 +161,9 @@ namespace CookingBook.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -168,6 +171,7 @@ namespace CookingBook.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -175,8 +179,7 @@ namespace CookingBook.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("Title")
-                        .IsUnique()
-                        .HasFilter("[Title] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -279,6 +282,7 @@ namespace CookingBook.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CookProcedure")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CookTime")
@@ -306,7 +310,9 @@ namespace CookingBook.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -329,6 +335,7 @@ namespace CookingBook.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
@@ -345,6 +352,9 @@ namespace CookingBook.Data.Migrations
 
                     b.Property<string>("RecipeId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");

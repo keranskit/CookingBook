@@ -1,10 +1,9 @@
-﻿namespace CookingBook.Data.Migrations
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace CookingBook.Data.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +18,7 @@
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -50,7 +49,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    ProfilePhoto = table.Column<string>(nullable: true),
+                    ProfilePhoto = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,7 +66,8 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
+                    Image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,7 +85,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -100,7 +100,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -121,7 +121,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -141,7 +141,7 @@
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -159,7 +159,7 @@
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -185,7 +185,7 @@
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -207,14 +207,14 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 100, nullable: false),
                     Photo = table.Column<string>(nullable: true),
-                    CookProcedure = table.Column<string>(nullable: true),
+                    CookProcedure = table.Column<string>(nullable: false),
                     CookTime = table.Column<int>(nullable: false),
                     Serving = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
                     NutritionValueId = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -249,7 +249,7 @@
                     Protein = table.Column<int>(nullable: false),
                     Fiber = table.Column<int>(nullable: false),
                     Salt = table.Column<int>(nullable: false),
-                    RecipeId = table.Column<string>(nullable: false),
+                    RecipeId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -273,7 +273,7 @@
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Quantity = table.Column<decimal>(nullable: false),
-                    RecipeId = table.Column<string>(nullable: false),
+                    RecipeId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -295,9 +295,10 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Comment = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: false),
+                    Score = table.Column<int>(nullable: false),
                     RecipeId = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -321,7 +322,7 @@
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RecipeId = table.Column<string>(nullable: false),
+                    RecipeId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -345,7 +346,7 @@
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RecipeId = table.Column<string>(nullable: false),
+                    RecipeId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -422,8 +423,7 @@
                 name: "IX_Categories_Title",
                 table: "Categories",
                 column: "Title",
-                unique: true,
-                filter: "[Title] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_NutritionValue_IsDeleted",

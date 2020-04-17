@@ -15,16 +15,16 @@
                 return;
             }
 
-            await dbContext.AddAsync(new Category { Title = "Salad" });
-            await dbContext.AddAsync(new Category { Title = "Soup" });
-            await dbContext.AddAsync(new Category { Title = "Beef" });
-            await dbContext.AddAsync(new Category { Title = "Chicken" });
-            await dbContext.AddAsync(new Category { Title = "Pork" });
-            await dbContext.AddAsync(new Category { Title = "Fish" });
-            await dbContext.AddAsync(new Category { Title = "Pizza" });
-            await dbContext.AddAsync(new Category { Title = "Grill" });
-            await dbContext.AddAsync(new Category { Title = "Breads" });
-            await dbContext.AddAsync(new Category { Title = "Dessert" });
+            await dbContext.AddAsync(new Category { Title = "Salads", Image = "https://i.ibb.co/nPWQ0YG/salad-banner.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Soups", Image = "https://i.ibb.co/kg6vNDf/soups.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Beef", Image = "https://i.ibb.co/m5ZqjNG/beef.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Chicken", Image = "https://i.ibb.co/1s1wtH6/chicken.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Pork", Image = "https://i.ibb.co/D589CjX/pork.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Fish", Image = "https://i.ibb.co/wSkQtC1/fish.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Pizza", Image = "https://i.ibb.co/R4NrD33/pizza.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Grill", Image = "https://i.ibb.co/tDfb8B5/grill.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Breads", Image = "https://i.ibb.co/sjNmJ7P/breads.jpg" });
+            await dbContext.AddAsync(new Category { Title = "Desserts", Image = "https://i.ibb.co/5BJ1Pmr/desserts.jpg" });
         }
     }
 }
