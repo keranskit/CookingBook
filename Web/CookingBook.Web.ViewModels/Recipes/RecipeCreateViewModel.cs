@@ -8,7 +8,7 @@
     using CookingBook.Services.Mapping;
     using Ganss.XSS;
 
-    public class RecipeCreateViewModel : IMapTo<Recipe>
+    public class RecipeCreateViewModel : IMapTo<RecipeDTO>
     {
         public RecipeCreateViewModel()
         {

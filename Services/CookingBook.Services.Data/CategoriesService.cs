@@ -26,14 +26,13 @@
 
         public IEnumerable<T> GetAll<T>()
         {
-            return this.categoryRepository.All().Where(x => x.IsDeleted == false).To<T>().ToList();
+            return this.categoryRepository.All().To<T>().ToList();
         }
 
         public T GetById<T>(int id)
         {
             var category = this.categoryRepository.All()
                 .Where(x => x.Id == id)
-                .Where(x => x.IsDeleted == false)
                 .To<T>().FirstOrDefault();
             return category;
         }
