@@ -11,11 +11,10 @@ function ShowProducts() {
         html +=
             '<div>' +
             '<label>Product  </label>' +
-            '<input name="Name" type="text"/>' +
+            '<input name="Name" type="text" required/>' +
             '<label>Quantity  </label>' +
-            '<input name="Quantity" type="number"/>' +
+            '<input name="Quantity" type="number" required/>' +
             '</div>';
-
     }
     console.log(html);
     document.getElementById("buttonForProduct").innerHTML = html;
