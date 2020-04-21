@@ -12,5 +12,7 @@
         public DateTime CreatedOn { get; set; }
 
         public string Title { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }

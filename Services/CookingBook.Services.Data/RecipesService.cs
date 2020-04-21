@@ -51,8 +51,7 @@
 
         public IEnumerable<T> GetByCategoryId<T>(int categoryId)
         {
-            return this.recipeRepository.All().Where(x => x.CategoryId == categoryId).Where(x => x.IsDeleted == false)
-                .OrderByDescending(x => x.CreatedOn).To<T>().ToList();
+            return this.recipeRepository.All().Where(x => x.CategoryId == categoryId).OrderByDescending(x => x.CreatedOn).To<T>().ToList();
         }
 
         public T GetById<T>(string recipeId)
