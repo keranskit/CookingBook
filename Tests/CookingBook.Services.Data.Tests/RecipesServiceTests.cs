@@ -11,13 +11,12 @@
     using CookingBook.Data.Models;
     using CookingBook.Data.Repositories;
     using CookingBook.Services.Mapping;
+    using CookingBook.Web.ViewModels.Administration.Main;
     using CookingBook.Web.ViewModels.Categories;
+    using CookingBook.Web.ViewModels.Profile;
     using CookingBook.Web.ViewModels.Recipes;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Primitives;
-    using NuGet.Frameworks;
-    using Web.ViewModels.Administration.Main;
-    using Web.ViewModels.Profile;
     using Xunit;
 
     public class RecipesServiceTests
@@ -77,49 +76,49 @@
             {
                 Id = "a", CreatedOn = DateTime.Parse("2008-11-01T19:31:00.0000000Z"), Title = "newTitle1",
                 NutritionValueId = "a", CategoryId = 1, CookProcedure = "a", CookTime = 1, Photo = "a", Serving = 1,
-                UserId = "az", Category = category, NutritionValue = nutrValue, User = user
+                UserId = "az", Category = category, NutritionValue = nutrValue, User = user,
             });
             dbContext.Recipes.Add(new Recipe
             {
                 Id = "b", CreatedOn = DateTime.Parse("2008-11-01T19:32:00.0000000Z"), Title = "newTitle2",
                 NutritionValueId = "a", CategoryId = 1, CookProcedure = "a", CookTime = 1, Photo = "a", Serving = 1,
-                UserId = "az", Category = category, NutritionValue = nutrValue, User = user
+                UserId = "az", Category = category, NutritionValue = nutrValue, User = user,
             });
             dbContext.Recipes.Add(new Recipe
             {
                 Id = "c", CreatedOn = DateTime.Parse("2008-11-01T19:33:00.0000000Z"), Title = "newTitle3",
                 NutritionValueId = "a", CategoryId = 1, CookProcedure = "a", CookTime = 1, Photo = "a", Serving = 1,
-                UserId = "az", Category = category, NutritionValue = nutrValue, User = user
+                UserId = "az", Category = category, NutritionValue = nutrValue, User = user,
             });
             dbContext.Recipes.Add(new Recipe
             {
                 Id = "d", CreatedOn = DateTime.Parse("2008-11-01T19:34:00.0000000Z"), Title = "newTitle4",
                 NutritionValueId = "a", CategoryId = 1, CookProcedure = "a", CookTime = 1, Photo = "a", Serving = 1,
-                UserId = "az", Category = category, NutritionValue = nutrValue, User = user
+                UserId = "az", Category = category, NutritionValue = nutrValue, User = user,
             });
             dbContext.Recipes.Add(new Recipe
             {
                 Id = "e", CreatedOn = DateTime.Parse("2008-11-01T19:35:00.0000000Z"), Title = "newTitle5",
                 NutritionValueId = "a", CategoryId = 1, CookProcedure = "a", CookTime = 1, Photo = "a", Serving = 1,
-                UserId = "az", Category = category, NutritionValue = nutrValue, User = user
+                UserId = "az", Category = category, NutritionValue = nutrValue, User = user,
             });
             dbContext.Recipes.Add(new Recipe
             {
                 Id = "f", CreatedOn = DateTime.Parse("2008-11-01T19:36:00.0000000Z"), Title = "newTitle6",
                 NutritionValueId = "a", CategoryId = 1, CookProcedure = "a", CookTime = 1, Photo = "a", Serving = 1,
-                UserId = "az", Category = category, NutritionValue = nutrValue, User = user
+                UserId = "az", Category = category, NutritionValue = nutrValue, User = user,
             });
             dbContext.Recipes.Add(new Recipe
             {
                 Id = "g", CreatedOn = DateTime.Parse("2008-11-01T19:37:00.0000000Z"), Title = "newTitle7",
                 NutritionValueId = "a", CategoryId = 1, CookProcedure = "a", CookTime = 1, Photo = "a", Serving = 1,
-                UserId = "az", Category = category, NutritionValue = nutrValue, User = user
+                UserId = "az", Category = category, NutritionValue = nutrValue, User = user,
             });
             dbContext.Recipes.Add(new Recipe
             {
                 Id = "h", CreatedOn = DateTime.Parse("2008-11-01T19:38:00.0000000Z"), Title = "newTitle8",
                 NutritionValueId = "a", CategoryId = 1, CookProcedure = "a", CookTime = 1, Photo = "a", Serving = 1,
-                UserId = "az", Category = category, NutritionValue = nutrValue, User = user
+                UserId = "az", Category = category, NutritionValue = nutrValue, User = user,
             });
             await dbContext.SaveChangesAsync();
 
@@ -255,7 +254,7 @@
                 Title = "addNew",
                 CookTime = 2,
                 NutritionValue = new RecipeCreateNutritionValuesViewModel
-                    {Calories = 1, Carbohydrates = 1, Fats = 1, Fiber = 1, Protein = 1, Salt = 1, Sugar = 1},
+                    { Calories = 1, Carbohydrates = 1, Fats = 1, Fiber = 1, Protein = 1, Salt = 1, Sugar = 1, },
                 Products = new List<RecipeCreateProductsViewModel>(),
             };
 
@@ -304,7 +303,7 @@
                 Title = "addNew",
                 CookTime = 2,
                 NutritionValue = new RecipeCreateNutritionValuesViewModel
-                    {Calories = 1, Carbohydrates = 1, Fats = 1, Fiber = 1, Protein = 1, Salt = 1, Sugar = 1},
+                    { Calories = 1, Carbohydrates = 1, Fats = 1, Fiber = 1, Protein = 1, Salt = 1, Sugar = 1, },
                 Products = new List<RecipeCreateProductsViewModel>(),
             };
             string userId = "trayan";
