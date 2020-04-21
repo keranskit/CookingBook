@@ -29,9 +29,6 @@
         public IEnumerable<T> GetFavoriteByUserId<T>(string userId)
         {
             return this.userRepository.All().Where(x => x.Id == userId).SelectMany(x => x.FavoriteRecipes).To<T>().ToList();
-
-            // var user = await this.userRepository.All().FirstOrDefaultAsync(x => x.Id == userId);
-            // var favoriteRecipes = user.FavoriteRecipes.
         }
 
         public async Task RemoveFromFavorites(string userId, string recipeId)
