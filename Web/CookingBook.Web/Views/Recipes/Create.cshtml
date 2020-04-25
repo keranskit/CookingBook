@@ -32,9 +32,10 @@
                 </div>
                 <div>
                     <label asp-for="Products"></label>
-                    <input id="ProductsCount" class="form-control" type="number" />
+                    <input id="ProductsCount" class="form-control" type="number"/>
                     <span asp-validation-for="Products" class="text-danger"></span>
                 </div>
+                <p class="text-danger">Please, first add products count, click Add Products and make sure all of your product are added correctly.</p>
                 <div>
                     <a href="#" class="btn btn-success" onclick="ShowProducts()">Add products</a>
                 </div>
